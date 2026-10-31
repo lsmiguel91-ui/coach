@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#5F829B">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Coach">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+<title>Coach de Luis Miguel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#F2F5F8;--card:#FFFFFF;--pri:#5F829B;--pri2:#8DA9BD;--soft:#E2EBF2;--text:#2B3742;--muted:#7B8894;--border:#D9E2EA;--hl:#EEF3F7;--ok:#4E9A73;--warn-bg:#FBF3E4;--warn:#8A5A12;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{background:#F2F5F8 !important;color-scheme:light !important;}
+body{font-family:'Inter','Segoe UI',Arial,sans-serif;background:#F2F5F8 !important;color:#2B3742 !important;min-height:100vh;overflow-x:hidden;overflow-x:clip;}
+.app{max-width:560px;margin:0 auto;padding:16px 16px 40px;}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px;}
+.hero .t{font-size:22px;font-weight:800;letter-spacing:.02em;color:#5F829B;line-height:1.15;}
+.hero .s{font-size:13px;color:#7B8894;}
+.sync{font-size:11px;color:#7B8894;display:flex;align-items:center;gap:6px;cursor:pointer;}
+.dot{width:7px;height:7px;border-radius:50%;background:#B9C4CE;}
+.dot.ok{background:#4E9A73;} .dot.busy{background:#E0A93B;}
+.nav{display:flex;gap:6px;margin:10px 0 12px;background:#E2EBF2 !important;padding:4px;border-radius:12px;}
+.nav button{flex:1;border:none;background:transparent !important;padding:9px 4px;border-radius:9px;font:600 13px 'Inter',sans-serif;color:#5D6B78;cursor:pointer;}
+.nav button.on{background:#FFFFFF !important;color:#2B3742;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.view{display:none;} .view.on{display:block;}
+.card{background:#FFFFFF !important;border:1px solid #D9E2EA;border-radius:16px;padding:14px;margin-bottom:12px;}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.kpis div{background:#FFFFFF !important;border:1px solid #D9E2EA;border-radius:12px;padding:8px 4px;text-align:center;}
+.kpis b{display:block;font-size:18px;color:#5F829B;} .kpis span{font-size:10px;color:#7B8894;}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.mh b{font-size:15px;text-transform:capitalize;} .mh button{border:none;background:#EEF3F7 !important;width:32px;height:32px;border-radius:8px;font-size:16px;color:#5F829B;cursor:pointer;}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.dn{text-align:center;font-size:10px;font-weight:700;color:#7B8894;padding-bottom:2px;}
+.day{position:relative;height:46px;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid transparent;}
+.day .ic{font-size:13px;line-height:1.1;min-height:14px;}
+.day.wk{background:#EEF3F7 !important;border-color:#E2EBF2;}
+.day.today{background:#5F829B !important;color:#fff;font-weight:800;}
+.day.sel{border-color:#5F829B;border-width:2px;}
+.day .ok{position:absolute;top:2px;right:4px;font-size:9px;color:#4E9A73;font-weight:800;}
+.day.today .ok{color:#fff;}
+.day.empty{cursor:default;}
+.legend{font-size:11px;color:#7B8894;margin-top:8px;line-height:1.6;}
+.next{background:#E2EBF2 !important;border-radius:14px;padding:12px 14px;margin-bottom:12px;}
+.next .l{font-size:10px;font-weight:800;letter-spacing:.1em;color:#5F829B;}
+.next .tt{font-weight:700;margin:3px 0;} .next .m{font-size:12px;color:#7B8894;}
+.btn{display:inline-block;margin-top:8px;background:#5F829B !important;color:#fff;border:none;font:700 12px 'Inter',sans-serif;padding:8px 14px;border-radius:8px;cursor:pointer;}
+.btn.ghost{background:#FFFFFF !important;color:#5F829B;border:1px solid #8DA9BD;}
+.btn.done{background:#4E9A73 !important;}
+.sess-h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px;}
+.sess-h .d{font-size:11px;font-weight:800;letter-spacing:.08em;color:#5F829B;text-transform:uppercase;}
+.sess-h .tt{font-size:16px;font-weight:700;margin-top:2px;}
+.sess-h .du{font-size:12px;color:#7B8894;white-space:nowrap;}
+.obj{font-size:12px;color:#5D6B78;background:#EEF3F7 !important;border-radius:8px;padding:7px 9px;margin-bottom:10px;}
+.notas{position:-webkit-sticky;position:sticky;top:6px;z-index:20;background:#F7FAFC !important;border:1px solid #8DA9BD;border-radius:12px;padding:8px 10px;margin-bottom:10px;box-shadow:0 4px 14px rgba(43,55,66,.10);}
+.notas.fijo{position:fixed !important;z-index:50;margin:0;}
+.notas-ph{display:none;}
+.notas .l{display:flex;justify-content:space-between;font-size:10px;font-weight:800;letter-spacing:.1em;color:#5F829B;margin-bottom:5px;}
+.notas .st{font-weight:600;letter-spacing:0;color:#7B8894;}
+textarea{width:100%;height:62px;max-height:110px;resize:none;border:1px solid #D9E2EA;border-radius:8px;padding:8px;font:13px/1.5 'Inter',sans-serif;color:#2B3742;background:#FFFFFF !important;}
+textarea:focus,input:focus{outline:none;border-color:#5F829B;}
+.gl{font-size:10px;font-weight:800;letter-spacing:.1em;color:#5F829B;margin:4px 0 6px;}
+.gg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+.gg label{border:1px solid #D9E2EA;border-radius:8px;padding:5px 7px;background:#FFFFFF !important;}
+.gg span{display:block;font-size:10px;color:#7B8894;}
+.gg input{width:100%;border:none;font:600 14px 'Inter',sans-serif;color:#2B3742;background:transparent !important;padding:1px 0;}
+.ph{font-size:11px;font-weight:800;letter-spacing:.08em;color:#7B8894;text-transform:uppercase;margin:12px 0 4px;}
+.ex{display:flex;gap:9px;padding:9px 0;border-top:1px solid #EEF3F7;}
+.ex:first-of-type{border-top:none;}
+.ex .b{width:8px;height:8px;border-radius:50%;background:#8DA9BD;margin-top:6px;flex-shrink:0;}
+.ex .b.k{background:#5F829B;box-shadow:0 0 0 3px #E2EBF2;}
+.ex .x{flex:1;} .ex .n{font-size:14px;font-weight:600;} .ex .q{font-size:12px;color:#5F829B;font-weight:600;margin-top:1px;}
+.ex .c{font-size:12px;color:#5D6B78;line-height:1.5;margin-top:3px;}
+.yt{flex-shrink:0;align-self:flex-start;font-size:11px;color:#C0392B;font-weight:600;border:1px solid #E7C1BC;border-radius:6px;padding:3px 7px;text-decoration:none;background:#FFFFFF !important;}
+.tip{font-size:12px;line-height:1.55;background:#EEF3F7 !important;border-left:3px solid #8DA9BD;border-radius:0 8px 8px 0;padding:8px 10px;margin-top:10px;color:#3E4C58;}
+.warn{font-size:12px;line-height:1.55;background:#FBF3E4 !important;border-left:3px solid #E0A93B;border-radius:0 8px 8px 0;padding:8px 10px;margin-top:10px;color:#8A5A12;}
+.hist{font-size:12px;line-height:1.55;background:#F7FAFC !important;border:1px dashed #B9C9D6;border-radius:10px;padding:9px 10px;margin-bottom:10px;}
+.hist b{color:#5F829B;}
+.muted{color:#7B8894;font-size:12px;}
+table{width:100%;border-collapse:collapse;font-size:12px;} th{color:#5F829B;text-align:left;padding:5px 4px;font-size:11px;} td{padding:5px 4px;border-top:1px solid #EEF3F7;}
+.ttl{font-size:13px;font-weight:800;color:#2B3742;margin-bottom:8px;}
+pre{white-space:pre-wrap;font:12px/1.5 'Inter',sans-serif;background:#F7FAFC !important;border:1px solid #D9E2EA;border-radius:10px;padding:10px;max-height:340px;overflow:auto;}
+.ov{position:fixed;inset:0;background:rgba(43,55,66,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:16px;}
+.ov .bx{background:#FFFFFF !important;border-radius:16px;padding:18px;max-width:420px;width:100%;}
+.ov input{width:100%;border:1px solid #D9E2EA;border-radius:8px;padding:10px;font:13px 'Inter',sans-serif;margin:10px 0;}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#2B3742;color:#fff;font-size:13px;padding:10px 14px;border-radius:10px;z-index:120;display:none;}
+</style>
+</head>
+<body>
+<div class="ov" id="cfg-url"><div class="bx">
+  <div class="ttl">🔗 Conectar con tu Drive</div>
+  <div class="muted">Pega la dirección de tu Apps Script (la que termina en <b>/exec</b>). Se pide una sola vez en este celular y no se guarda en el código.</div>
+  <input id="cfg-url-input" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://script.google.com/macros/s/…/exec">
+  <div id="cfg-url-err" class="warn" style="display:none;margin:0 0 8px">La dirección debe empezar con https://script.google.com/macros/s/ y terminar en /exec</div>
+  <button class="btn" onclick="confirmarConfigURL()">Guardar</button> <button class="btn ghost" onclick="cerrarConfigURL()">Ahora no</button>
+</div></div>
+<div class="toast" id="toast"></div>
+<div class="app">
+  <div class="hero">
+    <div><div class="t">Coach de Luis Miguel</div><div class="s" id="sub"></div></div>
+    <div class="sync" onclick="SCRIPT_URL?sincronizar():mostrarConfigURL()" oncontextmenu="mostrarConfigURL();return false;"><span class="dot" id="sdot"></span><span id="stxt">Local</span></div>
+  </div>
+  <div class="nav">
+    <button class="on" onclick="nav('inicio',this)">📅 Inicio</button>
+    <button onclick="nav('progreso',this)">📈 Progreso</button>
+    <button onclick="nav('reporte',this)">📊 Reporte</button>
+  </div>
+
+  <div class="view on" id="v-inicio">
+    <div class="kpis">
+      <div><b>14:11</b><span>3.2 km (aprobar)</span></div>
+      <div><b>59</b><span>abd. militares</span></div>
+      <div><b>35</b><span>push-ups</span></div>
+    </div>
+    <div class="card">
+      <div class="mh"><button onclick="mes(-1)">‹</button><b id="mtitle"></b><button onclick="mes(1)">›</button></div>
+      <div class="grid" id="cal"></div>
+      <div class="legend">🏃 trote · ⚡ intervalos · ⏱️ ritmo · 💪 pecho · 🦵 piernas · 🔥 abdomen · 😴 descanso · <b style="color:#4E9A73">✓</b> completado · 📝 nota guardada</div>
+    </div>
+    <div class="next" id="next"></div>
+    <div id="dia"></div>
+  </div>
+
+  <div class="view" id="v-progreso">
+    <div class="card"><div class="ttl">⌚ Registro Garmin (últimas sesiones)</div><div id="garmin-tbl"></div></div>
+    <div class="card"><div class="ttl">Push-ups AMRAP por semana</div><div id="chart-pushups"></div></div>
+    <div class="card"><div class="ttl">Abd. militares y plancha</div><div id="chart-core"></div></div>
+    <div class="card"><div class="ttl">🏁 Meta de carrera — 3.219 m</div>
+      <table><tr><th>Velocidad</th><th>Tiempo</th><th>Lectura</th></tr>
+      <tr><td>12.0 km/h</td><td>16:06</td><td>Nivel actual aprox.</td></tr>
+      <tr><td>13.0 km/h</td><td>14:51</td><td>Falta 40 s</td></tr>
+      <tr><td><b>13.6 km/h</b></td><td><b>14:11</b></td><td><b>Aprobar Tabla 5 (34-36 años)</b></td></tr>
+      <tr><td>14.0 km/h</td><td>13:46</td><td>Meta con margen</td></tr></table>
+      <div class="tip">Prueba 2026 no rendida: el plan construye sin fecha límite. Cada dos semanas sube la velocidad si la rodilla sigue en 0 y las series salen a RPE ≤8.</div>
+    </div>
+    <div class="card"><div class="ttl">Hitos de carrera</div><div id="hitos" class="muted" style="line-height:1.7"></div></div>
+  </div>
+
+  <div class="view" id="v-reporte">
+    <div class="card">
+      <div class="mh"><button onclick="semRep(-1)">‹</button><b id="rtitle"></b><button onclick="semRep(1)">›</button></div>
+      <pre id="rtext"></pre>
+      <button class="btn" id="cbtn" onclick="copiar()">📋 Copiar reporte</button>
+      <div class="muted" style="margin-top:8px">Igual no hace falta pegarlo: yo leo tus datos directo desde Drive.</div>
+    </div>
+  </div>
+</div>
+<script>
+// La URL del Apps Script NO va en el código: el repositorio es público y ese endpoint
+// no tiene autenticación. Se pide una vez por dispositivo y queda en localStorage.
+const SK_URL='coach_gas_url';
+let SCRIPT_URL=(()=>{try{return localStorage.getItem(SK_URL)||'';}catch(e){return '';}})();
+const URL_VALIDA=u=>/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test((u||'').trim());
+function mostrarConfigURL(){const o=document.getElementById('cfg-url');o.style.display='flex';const i=document.getElementById('cfg-url-input');i.value=SCRIPT_URL;}
+function cerrarConfigURL(){document.getElementById('cfg-url').style.display='none';}
+function confirmarConfigURL(){const v=(document.getElementById('cfg-url-input').value||'').trim(),e=document.getElementById('cfg-url-err');
+  if(!URL_VALIDA(v)){e.style.display='block';return;}e.style.display='none';SCRIPT_URL=v;try{localStorage.setItem(SK_URL,v);}catch(x){}cerrarConfigURL();sincronizar();}
+const LS_KEY='coachlm_v9';
+const PLAN={"2026-10-26": {"t": "trote", "ic": "🏃", "tit": "Trote de retorno 20 min", "dur": "35 min", "obj": "10 km/h · 1% · RPE 6 · debes poder hablar frases cortas", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}]}, {"f": "Principal", "items": [{"n": "Trote continuo", "d": "20 min · 10 km/h · 1%", "c": "Ritmo constante. Tronco erguido, brazos atrás a 90°, pasos cortos y rápidos. Si la rodilla pasa de 2/10, cortas ahí.", "yt": "tecnica de carrera trotadora postura", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "hora": "Madrugada · entras 08:00"}, "2026-10-27": {"t": "abd", "ic": "🔥", "tit": "Test abd. militares + fuerza de rodilla", "dur": "45 min", "obj": "Test 1'30\" sin pausa + fuerza amigable con la rodilla", "bloques": [{"f": "Test", "items": [{"n": "Abdominales militares 1'30\"", "d": "Sin pausa · meta 52", "c": "Ritmo constante ≈18 cada 30 s.", "k": 1}]}, {"f": "Fuerza (20 min)", "items": [{"n": "Wall sit isométrico", "d": "3 × 45 s", "c": "Espalda pegada a la pared, rodillas a ~70° (no tan profundo), rodillas alineadas con los pies. Fortalece el cuádriceps sin impacto.", "yt": "wall sit sentadilla isometrica pared", "k": 1}, {"n": "Puente de glúteo a una pierna", "d": "3 × 12 por pierna", "c": "Boca arriba, una pierna estirada al aire, empuja con el talón de la otra y aprieta 2 s arriba.", "yt": "puente de gluteo a una pierna"}, {"n": "Monster walk con banda", "d": "3 × 12 pasos por lado", "c": "Banda sobre las rodillas, semi-sentadilla, pasos laterales sin juntar los pies. Fortalece el glúteo medio, que estabiliza la rodilla.", "yt": "monster walk banda gluteo medio"}, {"n": "Peso muerto rumano", "d": "3 × 10 · 14 kg por mano", "c": "Rodillas apenas dobladas, cadera hacia atrás con espalda recta, mancuernas pegadas a las piernas. Sube despacio exhalando (evita el mareo).", "yt": "peso muerto rumano mancuernas tecnica"}, {"n": "Elevación de talón", "d": "3 × 15 · sin peso", "c": "En un escalón, sube con los dos pies y baja en 3 s con uno. Protege Aquiles y fascia plantar.", "yt": "elevacion de talones escalon excentrico"}]}], "hora": "05:30 · entras 09:00"}, "2026-10-28": {"t": "trote", "ic": "🏃", "tit": "Trote suave 25 min", "dur": "40 min", "obj": "10.5 km/h · 1% · RPE 6 · debes poder hablar frases cortas", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}]}, {"f": "Principal", "items": [{"n": "Trote continuo", "d": "25 min · 10.5 km/h · 1%", "c": "Ritmo constante. Tronco erguido, brazos atrás a 90°, pasos cortos y rápidos. Si la rodilla pasa de 2/10, cortas ahí.", "yt": "tecnica de carrera trotadora postura", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "hora": "05:30 · entras 09:00"}, "2026-10-29": {"t": "ritmo", "ic": "⏱️", "tit": "Ritmo sostenido 3×1 km @12.5", "dur": "50 min", "obj": "3 bloques de 1 km a 12.5 km/h · descanso 2:30 trotando a 6 · 1.5%", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}, {"n": "Drills de técnica", "d": "A-skip 2×20 m · B-skip 2×20 m", "c": "A-skip: rodilla arriba a 90°, brazo contrario, apoyo en la punta bajo la cadera. B-skip: igual, pero extiende la pierna adelante y \"rasca\" el piso hacia atrás. Tronco erguido.", "yt": "A skip B skip tecnica de carrera"}]}, {"f": "Principal", "items": [{"n": "Bloque 1", "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h", "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.", "k": 1}, {"n": "Bloque 2", "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h", "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.", "k": 1}, {"n": "Bloque 3", "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h", "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "tips": ["Este es el trabajo que más se parece a la prueba: aprender a sostener un ritmo incómodo sin parar."], "hora": "05:30 · entras 09:00"}, "2026-10-30": {"t": "pecho", "ic": "💪", "tit": "Pecho + AMRAP + abd. velocidad", "dur": "45 min", "obj": "Pecho mantenimiento 10 kg + test push-ups + bloques de 30 s", "bloques": [{"f": "Pecho", "items": [{"n": "Rotación externa con banda", "d": "2 × 15", "c": "Codo pegado al cuerpo a 90°, gira el antebrazo hacia afuera contra la banda y vuelve lento. Protege el hombro antes del pecho.", "yt": "rotacion externa hombro banda elastica"}, {"n": "Press mancuernas banco plano", "d": "4 × 8 · 10 kg", "c": "Escápulas juntas y apoyadas en el banco, baja en 2 s hasta el pecho, codos a 45° del cuerpo. Si el hombro derecho molesta, para.", "yt": "press de pecho con mancuernas tecnica"}, {"n": "Push-ups agarre ancho", "d": "3 × 15", "c": "Manos más abiertas que los hombros, cuerpo recto como tabla, pecho casi toca el piso.", "yt": "flexiones agarre ancho tecnica"}, {"n": "Push-ups pies elevados", "d": "3 × 12", "c": "Pies en el banco, manos en el piso. Trabaja la parte alta del pecho. Cuerpo recto.", "yt": "flexiones pies elevados"}, {"n": "Plank shoulder taps", "d": "3 × 12 por lado", "c": "En plancha alta, toca el hombro contrario alternando sin mover la cadera. Pies separados para más estabilidad.", "yt": "plank shoulder taps"}, {"n": "Fondos en banco", "d": "3 × 15", "c": "Manos en el borde del banco, piernas estiradas, baja hasta 90° de codo y sube. Codos hacia atrás, no abiertos.", "yt": "fondos en banco triceps tecnica"}]}, {"f": "Test pecho", "items": [{"n": "AMRAP push-ups 1'30\"", "d": "Aprobar 43 · meta 48", "c": "25 corridas, pausa arriba 3 s con brazos estirados, luego bloques de 5. Nunca rodillas al piso. Anota total y corridas.", "k": 1}]}, {"f": "Abdomen por velocidad (10 min)", "items": [{"n": "Abdominales militares en bloques de 30 s", "d": "5 × 30 s · descanso 45 s · meta 18-20 parejos", "c": "Técnica completa. Busca el mismo número en todos los bloques: ritmo parejo = 54+ en la prueba.", "yt": "abdominales militares tecnica correcta", "k": 1}, {"n": "Hollow body hold", "d": "2 × 40 s", "c": "Lumbar pegada al piso."}]}], "hora": "Madrugada · entras 08:00"}, "2026-10-31": {"t": "fondo", "ic": "🏃", "tit": "Fondo suave 30 min + pecho corto", "dur": "60 min", "obj": "10 km/h · 1.5% · RPE ≤6 · luego pecho corto", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}]}, {"f": "Fondo", "items": [{"n": "Trote continuo", "d": "30 min · 10 km/h · 1.5%", "c": "Base aeróbica: suave de verdad. Debes poder hablar. Si en el min 20 la rodilla pasa de 2/10, cortas.", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}, {"f": "Pecho corto", "items": [{"n": "Push-ups", "d": "3 × 15", "c": "Cuerpo recto, pecho casi al piso.", "yt": "flexiones de pecho tecnica correcta"}, {"n": "Plank shoulder taps", "d": "3 × 12 por lado", "c": "Sin mover la cadera.", "yt": "plank shoulder taps"}, {"n": "Plancha isométrica", "d": "2 × 40 s", "c": "Glúteos y abdomen apretados."}]}], "hora": "Sin horario"}, "2026-11-01": {"t": "descanso", "ic": "😴", "tit": "Descanso total", "dur": "—", "obj": "Recuperación. Opcional: caminar 20 min y foam roller.", "bloques": [], "hora": "—"}, "2026-11-02": {"t": "trote", "ic": "🏃", "tit": "Trote moderado 25 min", "dur": "40 min", "obj": "10.5 km/h · 1% · RPE 6 · debes poder hablar frases cortas", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}]}, {"f": "Principal", "items": [{"n": "Trote continuo", "d": "25 min · 10.5 km/h · 1%", "c": "Ritmo constante. Tronco erguido, brazos atrás a 90°, pasos cortos y rápidos. Si la rodilla pasa de 2/10, cortas ahí.", "yt": "tecnica de carrera trotadora postura", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "hora": "Madrugada · entras 08:00"}, "2026-11-03": {"t": "intervalos", "ic": "⚡", "tit": "Intervalos 5×600 m @12.5", "dur": "50 min", "obj": "5 series de 600 m a 12.5 km/h · descanso 2 min trotando a 6 km/h · 1.5%", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}, {"n": "Drills de técnica", "d": "A-skip 2×20 m · B-skip 2×20 m", "c": "A-skip: rodilla arriba a 90°, brazo contrario, apoyo en la punta bajo la cadera. B-skip: igual, pero extiende la pierna adelante y \"rasca\" el piso hacia atrás. Tronco erguido.", "yt": "A skip B skip tecnica de carrera"}]}, {"f": "Principal", "items": [{"n": "Serie 1", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"}, {"n": "Serie 2", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"}, {"n": "Serie 3", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"}, {"n": "Serie 4", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"}, {"n": "Serie 5", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "tips": ["Si la serie 4 sale a RPE 9+, la última va a 12.0 km/h. Si todas salen a RPE ≤8, en dos semanas sube 0.5 km/h."], "hora": "05:30 · entras 09:00"}, "2026-11-04": {"t": "pecho", "ic": "💪", "tit": "Pecho + abdomen completo (con tests)", "dur": "45 min", "obj": "Test abd. militares 1'30\" + pecho de mantenimiento + AMRAP push-ups", "bloques": [{"f": "Activación", "items": [{"n": "Bird-dog + puente de glúteo", "d": "2 × 10 c/u", "c": "Bird-dog: en cuatro apoyos, estira brazo y pierna contrarios sin mover la cadera. Puente: boca arriba, sube la cadera apretando glúteos 2 s.", "yt": "bird dog ejercicio tecnica"}]}, {"f": "Test abdominal", "items": [{"n": "Abdominales militares 1'30\"", "d": "1 serie máxima SIN PAUSA · aprobar 52 · meta 58", "c": "Pies fijos, rodillas a 90°, manos cruzadas al pecho. Los omóplatos despegan por completo y los codos tocan los muslos. Ritmo constante ≈ 18 cada 30 s; si arde, baja el ritmo pero no te detengas. Anota reps a los 30, 60 y 90 s.", "yt": "abdominales militares tecnica correcta", "k": 1}]}, {"f": "Pecho", "items": [{"n": "Rotación externa con banda", "d": "2 × 15", "c": "Codo pegado al cuerpo a 90°, gira el antebrazo hacia afuera contra la banda y vuelve lento. Protege el hombro antes del pecho.", "yt": "rotacion externa hombro banda elastica"}, {"n": "Press mancuernas banco plano", "d": "4 × 8 · 10 kg", "c": "Escápulas juntas y apoyadas en el banco, baja en 2 s hasta el pecho, codos a 45° del cuerpo. Si el hombro derecho molesta, para.", "yt": "press de pecho con mancuernas tecnica"}, {"n": "Push-ups agarre ancho", "d": "3 × 15", "c": "Manos más abiertas que los hombros, cuerpo recto como tabla, pecho casi toca el piso.", "yt": "flexiones agarre ancho tecnica"}, {"n": "Push-ups pies elevados", "d": "3 × 12", "c": "Pies en el banco, manos en el piso. Trabaja la parte alta del pecho. Cuerpo recto.", "yt": "flexiones pies elevados"}, {"n": "Plank shoulder taps", "d": "3 × 12 por lado", "c": "En plancha alta, toca el hombro contrario alternando sin mover la cadera. Pies separados para más estabilidad.", "yt": "plank shoulder taps"}, {"n": "Fondos en banco", "d": "3 × 15", "c": "Manos en el borde del banco, piernas estiradas, baja hasta 90° de codo y sube. Codos hacia atrás, no abiertos.", "yt": "fondos en banco triceps tecnica"}]}, {"f": "Test pecho", "items": [{"n": "AMRAP push-ups 1'30\"", "d": "Aprobar 43 · meta 48", "c": "25 corridas, pausa arriba 3 s con brazos estirados, luego bloques de 5. Nunca rodillas al piso. Anota total y corridas.", "k": 1}]}, {"f": "Abdomen complementario", "items": [{"n": "Hollow body hold", "d": "3 × 40 s", "c": "Boca arriba, lumbar pegada al piso, brazos y piernas estirados elevados. Si la lumbar se despega, sube un poco las piernas.", "yt": "hollow body hold tecnica"}, {"n": "Elevaciones de piernas", "d": "3 × 12", "c": "Piernas juntas, sube a 90° y baja lento sin tocar el piso. Lumbar pegada.", "yt": "leg raises tecnica"}, {"n": "Plancha isométrica", "d": "1 intento · meta 2:20", "c": "Codos bajo los hombros, glúteos apretados, abdomen activo. Respira.", "yt": "plancha abdominal tecnica correcta"}]}], "hora": "05:30 · entras 09:00"}, "2026-11-05": {"t": "ritmo", "ic": "⏱️", "tit": "Ritmo sostenido 2×1.5 km @12", "dur": "50 min", "obj": "2 bloques de 1.5 km a 12 km/h · descanso 3 min trotando a 6 · 1.5%", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}, {"n": "Drills de técnica", "d": "A-skip 2×20 m · B-skip 2×20 m", "c": "A-skip: rodilla arriba a 90°, brazo contrario, apoyo en la punta bajo la cadera. B-skip: igual, pero extiende la pierna adelante y \"rasca\" el piso hacia atrás. Tronco erguido.", "yt": "A skip B skip tecnica de carrera"}]}, {"f": "Principal", "items": [{"n": "Bloque 1", "d": "1.5 km @ 12 km/h · 1.5% → 3 min a 6 km/h", "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.", "k": 1}, {"n": "Bloque 2", "d": "1.5 km @ 12 km/h · 1.5% → 3 min a 6 km/h", "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "tips": ["Este es el trabajo que más se parece a la prueba: aprender a sostener un ritmo incómodo sin parar."], "hora": "05:30 · entras 09:00"}, "2026-11-06": {"t": "piernas", "ic": "🦵", "tit": "Piernas que protegen la rodilla + abd. velocidad", "dur": "35 min", "obj": "Fuerza sin impacto para la rodilla + abdominales a ritmo de prueba", "bloques": [{"f": "Fuerza (20 min)", "items": [{"n": "Wall sit isométrico", "d": "3 × 45 s", "c": "Espalda pegada a la pared, rodillas a ~70° (no tan profundo), rodillas alineadas con los pies. Fortalece el cuádriceps sin impacto.", "yt": "wall sit sentadilla isometrica pared", "k": 1}, {"n": "Puente de glúteo a una pierna", "d": "3 × 12 por pierna", "c": "Boca arriba, una pierna estirada al aire, empuja con el talón de la otra y aprieta 2 s arriba.", "yt": "puente de gluteo a una pierna"}, {"n": "Monster walk con banda", "d": "3 × 12 pasos por lado", "c": "Banda sobre las rodillas, semi-sentadilla, pasos laterales sin juntar los pies. Fortalece el glúteo medio, que estabiliza la rodilla.", "yt": "monster walk banda gluteo medio"}, {"n": "Peso muerto rumano", "d": "3 × 10 · 14 kg por mano", "c": "Rodillas apenas dobladas, cadera hacia atrás con espalda recta, mancuernas pegadas a las piernas. Sube despacio exhalando (evita el mareo).", "yt": "peso muerto rumano mancuernas tecnica"}, {"n": "Elevación de talón", "d": "3 × 15 · sin peso", "c": "En un escalón, sube con los dos pies y baja en 3 s con uno. Protege Aquiles y fascia plantar.", "yt": "elevacion de talones escalon excentrico"}]}, {"f": "Abdomen por velocidad (10 min)", "items": [{"n": "Abdominales militares en bloques de 30 s", "d": "5 × 30 s · descanso 45 s · meta 18-20 parejos", "c": "Técnica completa. Busca el mismo número en todos los bloques: ritmo parejo = 54+ en la prueba.", "yt": "abdominales militares tecnica correcta", "k": 1}, {"n": "Hollow body hold", "d": "2 × 40 s", "c": "Lumbar pegada al piso."}]}], "hora": "Madrugada · entras 08:00"}, "2026-11-07": {"t": "fondo", "ic": "🏃", "tit": "Fondo suave 35 min + pecho corto", "dur": "65 min", "obj": "10 km/h · 1.5% · RPE ≤6 · luego pecho corto", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}]}, {"f": "Fondo", "items": [{"n": "Trote continuo", "d": "35 min · 10 km/h · 1.5%", "c": "Base aeróbica: suave de verdad. Debes poder hablar. Si en el min 20 la rodilla pasa de 2/10, cortas.", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}, {"f": "Pecho corto", "items": [{"n": "Push-ups", "d": "3 × 15", "c": "Cuerpo recto, pecho casi al piso.", "yt": "flexiones de pecho tecnica correcta"}, {"n": "Plank shoulder taps", "d": "3 × 12 por lado", "c": "Sin mover la cadera.", "yt": "plank shoulder taps"}, {"n": "Plancha isométrica", "d": "2 × 40 s", "c": "Glúteos y abdomen apretados."}]}], "hora": "Sin horario"}, "2026-11-08": {"t": "descanso", "ic": "😴", "tit": "Descanso total", "dur": "—", "obj": "Recuperación. Opcional: caminar 20 min y foam roller.", "bloques": [], "hora": "—"}, "2026-11-09": {"t": "trote", "ic": "🏃", "tit": "Trote moderado 25 min", "dur": "40 min", "obj": "10.5 km/h · 1% · RPE 6 · debes poder hablar frases cortas", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}]}, {"f": "Principal", "items": [{"n": "Trote continuo", "d": "25 min · 10.5 km/h · 1%", "c": "Ritmo constante. Tronco erguido, brazos atrás a 90°, pasos cortos y rápidos. Si la rodilla pasa de 2/10, cortas ahí.", "yt": "tecnica de carrera trotadora postura", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "hora": "Madrugada · entras 08:00"}, "2026-11-10": {"t": "intervalos", "ic": "⚡", "tit": "Intervalos 5×600 m @12.5", "dur": "50 min", "obj": "5 series de 600 m a 12.5 km/h · descanso 2 min trotando a 6 km/h · 1.5%", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}, {"n": "Drills de técnica", "d": "A-skip 2×20 m · B-skip 2×20 m", "c": "A-skip: rodilla arriba a 90°, brazo contrario, apoyo en la punta bajo la cadera. B-skip: igual, pero extiende la pierna adelante y \"rasca\" el piso hacia atrás. Tronco erguido.", "yt": "A skip B skip tecnica de carrera"}]}, {"f": "Principal", "items": [{"n": "Serie 1", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"}, {"n": "Serie 2", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"}, {"n": "Serie 3", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"}, {"n": "Serie 4", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"}, {"n": "Serie 5", "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "tips": ["Si la serie 4 sale a RPE 9+, la última va a 12.0 km/h. Si todas salen a RPE ≤8, en dos semanas sube 0.5 km/h."], "hora": "05:30 · entras 09:00"}, "2026-11-11": {"t": "pecho", "ic": "💪", "tit": "Pecho + abdomen completo (con tests)", "dur": "45 min", "obj": "Test abd. militares 1'30\" + pecho de mantenimiento + AMRAP push-ups", "bloques": [{"f": "Activación", "items": [{"n": "Bird-dog + puente de glúteo", "d": "2 × 10 c/u", "c": "Bird-dog: en cuatro apoyos, estira brazo y pierna contrarios sin mover la cadera. Puente: boca arriba, sube la cadera apretando glúteos 2 s.", "yt": "bird dog ejercicio tecnica"}]}, {"f": "Test abdominal", "items": [{"n": "Abdominales militares 1'30\"", "d": "1 serie máxima SIN PAUSA · aprobar 52 · meta 58", "c": "Pies fijos, rodillas a 90°, manos cruzadas al pecho. Los omóplatos despegan por completo y los codos tocan los muslos. Ritmo constante ≈ 18 cada 30 s; si arde, baja el ritmo pero no te detengas. Anota reps a los 30, 60 y 90 s.", "yt": "abdominales militares tecnica correcta", "k": 1}]}, {"f": "Pecho", "items": [{"n": "Rotación externa con banda", "d": "2 × 15", "c": "Codo pegado al cuerpo a 90°, gira el antebrazo hacia afuera contra la banda y vuelve lento. Protege el hombro antes del pecho.", "yt": "rotacion externa hombro banda elastica"}, {"n": "Press mancuernas banco plano", "d": "4 × 8 · 10 kg", "c": "Escápulas juntas y apoyadas en el banco, baja en 2 s hasta el pecho, codos a 45° del cuerpo. Si el hombro derecho molesta, para.", "yt": "press de pecho con mancuernas tecnica"}, {"n": "Push-ups agarre ancho", "d": "3 × 15", "c": "Manos más abiertas que los hombros, cuerpo recto como tabla, pecho casi toca el piso.", "yt": "flexiones agarre ancho tecnica"}, {"n": "Push-ups pies elevados", "d": "3 × 12", "c": "Pies en el banco, manos en el piso. Trabaja la parte alta del pecho. Cuerpo recto.", "yt": "flexiones pies elevados"}, {"n": "Plank shoulder taps", "d": "3 × 12 por lado", "c": "En plancha alta, toca el hombro contrario alternando sin mover la cadera. Pies separados para más estabilidad.", "yt": "plank shoulder taps"}, {"n": "Fondos en banco", "d": "3 × 15", "c": "Manos en el borde del banco, piernas estiradas, baja hasta 90° de codo y sube. Codos hacia atrás, no abiertos.", "yt": "fondos en banco triceps tecnica"}]}, {"f": "Test pecho", "items": [{"n": "AMRAP push-ups 1'30\"", "d": "Aprobar 43 · meta 48", "c": "25 corridas, pausa arriba 3 s con brazos estirados, luego bloques de 5. Nunca rodillas al piso. Anota total y corridas.", "k": 1}]}, {"f": "Abdomen complementario", "items": [{"n": "Hollow body hold", "d": "3 × 40 s", "c": "Boca arriba, lumbar pegada al piso, brazos y piernas estirados elevados. Si la lumbar se despega, sube un poco las piernas.", "yt": "hollow body hold tecnica"}, {"n": "Elevaciones de piernas", "d": "3 × 12", "c": "Piernas juntas, sube a 90° y baja lento sin tocar el piso. Lumbar pegada.", "yt": "leg raises tecnica"}, {"n": "Plancha isométrica", "d": "1 intento · meta 2:20", "c": "Codos bajo los hombros, glúteos apretados, abdomen activo. Respira.", "yt": "plancha abdominal tecnica correcta"}]}], "hora": "05:30 · entras 09:00"}, "2026-11-12": {"t": "ritmo", "ic": "⏱️", "tit": "Ritmo sostenido 2×1.5 km @12", "dur": "50 min", "obj": "2 bloques de 1.5 km a 12 km/h · descanso 3 min trotando a 6 · 1.5%", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}, {"n": "Drills de técnica", "d": "A-skip 2×20 m · B-skip 2×20 m", "c": "A-skip: rodilla arriba a 90°, brazo contrario, apoyo en la punta bajo la cadera. B-skip: igual, pero extiende la pierna adelante y \"rasca\" el piso hacia atrás. Tronco erguido.", "yt": "A skip B skip tecnica de carrera"}]}, {"f": "Principal", "items": [{"n": "Bloque 1", "d": "1.5 km @ 12 km/h · 1.5% → 3 min a 6 km/h", "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.", "k": 1}, {"n": "Bloque 2", "d": "1.5 km @ 12 km/h · 1.5% → 3 min a 6 km/h", "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}], "tips": ["Este es el trabajo que más se parece a la prueba: aprender a sostener un ritmo incómodo sin parar."], "hora": "05:30 · entras 09:00"}, "2026-11-13": {"t": "piernas", "ic": "🦵", "tit": "Piernas que protegen la rodilla + abd. velocidad", "dur": "35 min", "obj": "Fuerza sin impacto para la rodilla + abdominales a ritmo de prueba", "bloques": [{"f": "Fuerza (20 min)", "items": [{"n": "Wall sit isométrico", "d": "3 × 45 s", "c": "Espalda pegada a la pared, rodillas a ~70° (no tan profundo), rodillas alineadas con los pies. Fortalece el cuádriceps sin impacto.", "yt": "wall sit sentadilla isometrica pared", "k": 1}, {"n": "Puente de glúteo a una pierna", "d": "3 × 12 por pierna", "c": "Boca arriba, una pierna estirada al aire, empuja con el talón de la otra y aprieta 2 s arriba.", "yt": "puente de gluteo a una pierna"}, {"n": "Monster walk con banda", "d": "3 × 12 pasos por lado", "c": "Banda sobre las rodillas, semi-sentadilla, pasos laterales sin juntar los pies. Fortalece el glúteo medio, que estabiliza la rodilla.", "yt": "monster walk banda gluteo medio"}, {"n": "Peso muerto rumano", "d": "3 × 10 · 14 kg por mano", "c": "Rodillas apenas dobladas, cadera hacia atrás con espalda recta, mancuernas pegadas a las piernas. Sube despacio exhalando (evita el mareo).", "yt": "peso muerto rumano mancuernas tecnica"}, {"n": "Elevación de talón", "d": "3 × 15 · sin peso", "c": "En un escalón, sube con los dos pies y baja en 3 s con uno. Protege Aquiles y fascia plantar.", "yt": "elevacion de talones escalon excentrico"}]}, {"f": "Abdomen por velocidad (10 min)", "items": [{"n": "Abdominales militares en bloques de 30 s", "d": "5 × 30 s · descanso 45 s · meta 18-20 parejos", "c": "Técnica completa. Busca el mismo número en todos los bloques: ritmo parejo = 54+ en la prueba.", "yt": "abdominales militares tecnica correcta", "k": 1}, {"n": "Hollow body hold", "d": "2 × 40 s", "c": "Lumbar pegada al piso."}]}], "hora": "Madrugada · entras 08:00"}, "2026-11-14": {"t": "fondo", "ic": "🏃", "tit": "Fondo suave 35 min + pecho corto", "dur": "65 min", "obj": "10 km/h · 1.5% · RPE ≤6 · luego pecho corto", "bloques": [{"f": "Antes", "items": [{"n": "Test de la grada", "d": "Antes de correr", "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."}, {"n": "Foam roller", "d": "Cuádriceps y aductores · 60 s por zona y pierna", "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.", "yt": "foam roller cuadriceps aductores tecnica"}]}, {"f": "Calentamiento", "items": [{"n": "Calentamiento", "d": "8 min · 7→8 km/h · 0%", "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."}]}, {"f": "Fondo", "items": [{"n": "Trote continuo", "d": "35 min · 10 km/h · 1.5%", "c": "Base aeróbica: suave de verdad. Debes poder hablar. Si en el min 20 la rodilla pasa de 2/10, cortas.", "k": 1}]}, {"f": "Cierre", "items": [{"n": "Enfriamiento anti-mareo", "d": "5 min · 6 km/h · 0%", "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."}]}, {"f": "Pecho corto", "items": [{"n": "Push-ups", "d": "3 × 15", "c": "Cuerpo recto, pecho casi al piso.", "yt": "flexiones de pecho tecnica correcta"}, {"n": "Plank shoulder taps", "d": "3 × 12 por lado", "c": "Sin mover la cadera.", "yt": "plank shoulder taps"}, {"n": "Plancha isométrica", "d": "2 × 40 s", "c": "Glúteos y abdomen apretados."}]}], "hora": "Sin horario"}, "2026-11-15": {"t": "descanso", "ic": "😴", "tit": "Descanso total", "dur": "—", "obj": "Recuperación. Opcional: caminar 20 min y foam roller.", "bloques": [], "hora": "—"}};
+const HISTORIAL={
+  semanas:[4,5,6,7,8,9,10,11,12,13,14,15,16,17],
+  pushups_total:[35,38,44,50,50,46,52,46,33,35,null,30,35,null],
+  pushups_corridos:[null,25,35,40,40,35,45,42,33,30,null,30,28,null],
+  abd_mil:[null,null,20,25,30,30,30,35,35,35,35,35,42,59],
+  plancha_seg:[105,130,140,140,150,150,150,165,165,165,150,120,135,null],
+  hollow_seg:[25,32,38,40,40,45,45,45,45,40,38,40,40,null],
+  wallsit_seg:[25,35,null,50,55,50,55,60,null,60,null,55,60,null],
+  carrera:['Intervalos 12-12.5 exigentes','12.5 remate fuerte','11.5×15min RPE 6.5 · lunes 10/10','Post-donación · pausas','Intervalos fluidos RPE 8.5','12.5×13:30 · 2 pausas','12.5×13:30 SIN PAUSAS ✅','TAURA: 13×14min RPE 8 ✅ · intervalos 13.7/14.5','TAURA: 5×800m calle ~13km/h+ · 4ta bien · 5ta costó','POST-PAUSA 3sem: serie1 ok · serie2 costó · serie3 incompleta · serie4 no','Galápagos: 6×400m@8mph+11.5→11.7km/h×10min RPE8-8.5 · plancha 2:30✅','3 series 12km/h (4ta no lograda) · reaclimatación 2850m · 11.5→11.7×12min RPE 8.5','4×(600@12+200@12.5) casi completas · técnica corregida · simulacro pendiente','5×400 m @13.5 (RPE 9) con rodilla 4/10 → S18 pausa sin impacto']
+};
+const REF_LUNES='2026-10-12', REF_SEM=17;
+const GF=[['fcp','FC prom','ppm'],['fcm','FC máx','ppm'],['cad','Cadencia','pasos'],['dist','Distancia','km'],['rdy','Readiness','0-100'],['sue','Sueño','h'],['rod','Rodilla','0-10'],['rpe','Esfuerzo','1-10']];
+const ICH={'trote':'🏃','pecho':'💪','abdomen':'🔥','piernas':'🦵'};
+let datos={semanas:{},dias:{}};
+let vMes, selDia, repLunes, timer=null;
+
+// ---------- fechas ----------
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const parseISO=s=>{const[a,m,d]=s.split('-').map(Number);return new Date(a,m-1,d);};
+const addD=(s,n)=>{const d=parseISO(s);d.setDate(d.getDate()+n);return iso(d);};
+const lunesDe=s=>{const d=parseISO(s);const w=(d.getDay()+6)%7;d.setDate(d.getDate()-w);return iso(d);};
+const semDe=s=>REF_SEM+Math.round((parseISO(lunesDe(s))-parseISO(REF_LUNES))/864e5/7);
+const hoy=()=>iso(new Date());
+const DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const fLarga=s=>{const d=parseISO(s);return DIAS[d.getDay()]+' '+d.getDate()+' '+d.toLocaleDateString('es-EC',{month:'short'}).replace('.','');};
+
+// ---------- histórico (versiones anteriores, por fecha de la nota) ----------
+let HIST={};
+function armarHist(){
+  HIST={};
+  const S=datos.semanas||{};
+  Object.keys(S).forEach(w=>{const sm=S[w]||{},n=sm.notas||{},f=sm.fechas||{},c=sm.completadas||{};
+    Object.keys(n).forEach(id=>{if(!n[id])return;const m=String(f[id]||'').match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);if(!m)return;
+      const k=m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');(HIST[k]=HIST[k]||[]).push({w,id,txt:n[id],ok:!!c[id]});});});
+}
+const tipoHist=id=>{for(const k in ICH)if(id.indexOf(k)>=0)return ICH[k];return '📝';};
+const nombreId=id=>id.replace(/-/g,' ').replace(/^\w/,c=>c.toUpperCase());
+
+// ---------- datos ----------
+const dia=k=>{if(!datos.dias)datos.dias={};return datos.dias[k]=datos.dias[k]||{nota:'',m:{},ok:false,f:''};};
+function setSync(e,t){document.getElementById('sdot').className='dot '+e;document.getElementById('stxt').textContent=t;}
+function guardarLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify(datos));}catch(e){}}
+function cargarLocal(){try{const s=localStorage.getItem(LS_KEY);if(s){datos=JSON.parse(s);}}catch(e){}if(!datos.semanas)datos.semanas={};if(!datos.dias)datos.dias={};}
+async function sincronizar(){
+  if(!SCRIPT_URL){setSync('','Sin conectar · toca para configurar');return;}
+  setSync('busy','Sincronizando…');
+  try{const r=await fetch(SCRIPT_URL+'?action=leer&t='+Date.now());const j=await r.json();
+    if(j.ok&&j.data){const local=datos.dias||{};datos=j.data;if(!datos.semanas)datos.semanas={};if(!datos.dias)datos.dias={};
+      Object.keys(local).forEach(k=>{const a=local[k],b=datos.dias[k];if(!b||(a.f&&(!b.f||a.f>b.f)))datos.dias[k]=a;});
+      guardarLocal();armarHist();render(true);setSync('ok','Drive '+new Date().toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'}));}
+    else throw 0;}catch(e){setSync('','Sin conexión · local');}
+}
+async function guardarDrive(){guardarLocal();if(!SCRIPT_URL)return false;
+  try{const r=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'guardar',data:datos})});const j=await r.json();if(j.ok){setSync('ok','Guardado en Drive');return true;}}catch(e){}
+  setSync('','Guardado local');return false;}
+function cambio(){
+  const k=selDia;if(!k)return;const d=dia(k);
+  const ta=document.getElementById('nota');if(ta)d.nota=ta.value;
+  GF.forEach(([id])=>{const el=document.getElementById('g-'+id);if(el)d.m[id]=el.value;});
+  d.f=new Date().toISOString();
+  const st=document.getElementById('nst');if(st)st.textContent='Guardando…';
+  clearTimeout(timer);timer=setTimeout(async()=>{const ok=await guardarDrive();if(st)st.textContent=ok?'✓ Drive':'✓ Local';pintarCal();},1200);
+}
+async function completar(){const d=dia(selDia);d.ok=!d.ok;d.f=new Date().toISOString();await guardarDrive();render();}
+
+// ---------- calendario ----------
+function pintarCal(){
+  const y=vMes.getFullYear(),m=vMes.getMonth();
+  document.getElementById('mtitle').textContent=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'][m]+' '+y;
+  const first=new Date(y,m,1),pad=(first.getDay()+6)%7,n=new Date(y,m+1,0).getDate();
+  const H=hoy(),wk=lunesDe(H);
+  let h=['L','M','M','J','V','S','D'].map(x=>'<div class="dn">'+x+'</div>').join('');
+  for(let i=0;i<pad;i++)h+='<div class="day empty"></div>';
+  for(let d=1;d<=n;d++){const k=iso(new Date(y,m,d));const p=PLAN[k],dd=(datos.dias||{})[k],hs=HIST[k];
+    let ic=p?p.ic:(hs?tipoHist(hs[0].id):'');let ok=(dd&&dd.ok)||(hs&&hs.some(x=>x.ok));
+    if(!ic&&dd&&(dd.nota||dd.ok))ic='📝';
+    let cls='day';if(lunesDe(k)===wk)cls+=' wk';if(k===H)cls+=' today';if(k===selDia)cls+=' sel';
+    h+=`<div class="${cls}" onclick="abrir('${k}')"><span>${d}</span><span class="ic">${ic}</span>${ok?'<span class="ok">✓</span>':''}</div>`;}
+  document.getElementById('cal').innerHTML=h;
+}
+function mes(n){vMes=new Date(vMes.getFullYear(),vMes.getMonth()+n,1);pintarCal();}
+
+function pintarNext(){
+  const H=hoy();let k=H,lab='HOY';
+  if(!PLAN[k]||(datos.dias[k]&&datos.dias[k].ok)||PLAN[k].t==='descanso'){
+    k=null;for(let i=1;i<14;i++){const c=addD(H,i);if(PLAN[c]&&PLAN[c].t!=='descanso'){k=c;lab=i===1?'MAÑANA':'PRÓXIMA';break;}}}
+  const el=document.getElementById('next');
+  if(!k){el.innerHTML='<div class="l">SIN SESIONES CARGADAS</div><div class="m">Pídeme la siguiente semana del plan.</div>';return;}
+  const p=PLAN[k];
+  el.innerHTML=`<div class="l">${lab} · ${fLarga(k).toUpperCase()}</div><div class="tt">${p.ic} ${p.tit}</div><div class="m">${p.obj}</div><button class="btn" onclick="abrir('${k}')">Abrir sesión →</button>`;
+}
+
+// ---------- día ----------
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function abrir(k,noScroll){
+  selDia=k;if(parseISO(k).getMonth()!==vMes.getMonth()||parseISO(k).getFullYear()!==vMes.getFullYear())vMes=new Date(parseISO(k).getFullYear(),parseISO(k).getMonth(),1);
+  pintarCal();
+  const p=PLAN[k],d=(datos.dias||{})[k]||{nota:'',m:{},ok:false},hs=HIST[k]||[];
+  let h='<div class="card">';
+  h+=`<div class="sess-h"><div><div class="d">${fLarga(k)} · Semana ${semDe(k)}${p&&p.hora?' · '+p.hora:''}</div><div class="tt">${p?p.ic+' '+p.tit:'Sin sesión planificada'}</div></div><div class="du">${p?p.dur:''}</div></div>`;
+  if(p&&p.obj)h+=`<div class="obj">🎯 ${p.obj}</div>`;
+  if(hs.length){h+='<div class="hist"><b>Registro de versiones anteriores</b><br>'+hs.map(x=>`${tipoHist(x.id)} <b>${nombreId(x.id)}</b> (sem ${x.w})${x.ok?' ✓':''}: ${esc(x.txt)}`).join('<br><br>')+'</div>';}
+  const editable=!!p||!!d.nota;
+  if(p&&p.t!=='descanso'||d.nota){
+    h+=`<div class="notas-ph" id="notas-ph"></div><div class="notas" id="notas"><div class="l"><span>📝 NOTAS</span><span class="st" id="nst"></span></div><textarea id="nota" oninput="cambio()" onfocus="fijarNotas(true)" onblur="fijarNotas(false)" placeholder="Cómo te sentiste, series, rodilla, lo que quieras anotar…">${esc(d.nota)}</textarea></div>`;
+    h+='<div class="gl">⌚ DATOS GARMIN</div><div class="gg">'+GF.map(([id,l,u])=>`<label><span>${l}</span><input id="g-${id}" inputmode="decimal" placeholder="${u}" value="${esc((d.m||{})[id])}" oninput="cambio()"></label>`).join('')+'</div>';
+  }
+  if(p){(p.bloques||[]).forEach(b=>{h+=`<div class="ph">${b.f}</div>`;
+      b.items.forEach(x=>{h+=`<div class="ex"><span class="b${x.k?' k':''}"></span><div class="x"><div class="n">${x.n}</div><div class="q">${x.d}</div>${x.c?'<div class="c">'+x.c+'</div>':''}</div>${x.yt?`<a class="yt" target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(x.yt)}">▶ YouTube</a>`:''}</div>`;});});
+    (p.tips||[]).forEach(t=>h+=`<div class="tip">💡 ${t}</div>`);
+    if(['trote','intervalos','ritmo','fondo'].includes(p.t))h+='<div class="warn">🛡️ Rodilla: dolor ≥3/10 antes o durante → paras. Si al día siguiente duele en gradas, la próxima carrera pasa a bici o caminata.</div>';
+    if(p.t!=='descanso')h+=`<button class="btn ${d.ok?'done':''}" onclick="completar()">${d.ok?'✓ Sesión completada':'Marcar sesión completa ✓'}</button>`;
+  } else if(!hs.length) h+='<div class="muted">No hay plan ni registro para este día.</div>';
+  h+='</div>';
+  document.getElementById('dia').innerHTML=h;
+  if(!noScroll)document.getElementById('dia').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ---------- notas fijas con teclado abierto ----------
+function posNotas(){const p=document.getElementById('notas');if(!p||!p.classList.contains('fijo'))return;
+  const ph=document.getElementById('notas-ph'),r=ph.getBoundingClientRect(),vv=window.visualViewport;
+  p.style.top=((vv?vv.offsetTop:0)+6)+'px';p.style.left=r.left+'px';p.style.width=r.width+'px';}
+function fijarNotas(on){const p=document.getElementById('notas'),ph=document.getElementById('notas-ph');if(!p||!ph)return;
+  if(on){ph.style.display='block';ph.style.height=p.offsetHeight+'px';ph.style.marginBottom='10px';p.classList.add('fijo');posNotas();}
+  else{setTimeout(()=>{if(document.activeElement&&document.activeElement.id==='nota')return;p.classList.remove('fijo');p.style.top=p.style.left=p.style.width='';ph.style.display='none';},150);}}
+if(window.visualViewport){visualViewport.addEventListener('resize',posNotas);visualViewport.addEventListener('scroll',posNotas);}
+window.addEventListener('scroll',posNotas,{passive:true});window.addEventListener('resize',posNotas);
+
+// ---------- reporte ----------
+function semRep(n){repLunes=addD(repLunes,7*n);pintarRep();}
+function pintarRep(){
+  document.getElementById('rtitle').textContent='Semana '+semDe(repLunes)+' · '+parseISO(repLunes).getDate()+'/'+(parseISO(repLunes).getMonth()+1);
+  let t=`REPORTE SEMANA ${semDe(repLunes)} (desde ${fLarga(repLunes)})\n`;
+  for(let i=0;i<7;i++){const k=addD(repLunes,i),p=PLAN[k],d=(datos.dias||{})[k],hs=HIST[k]||[];
+    if(!p&&!d&&!hs.length)continue;
+    t+=`\n${fLarga(k)} — ${p?p.tit:'(sin plan)'}${d&&d.ok?' ✓':''}\n`;
+    if(d){const m=GF.filter(([id])=>d.m&&d.m[id]).map(([id,l,u])=>l+' '+d.m[id]).join(' · ');if(m)t+='  ⌚ '+m+'\n';if(d.nota)t+='  📝 '+d.nota+'\n';}
+    hs.forEach(x=>t+=`  📝 [${x.id}] ${x.txt}\n`);}
+  document.getElementById('rtext').textContent=t;
+}
+function copiar(){const t=document.getElementById('rtext').textContent,b=document.getElementById('cbtn');
+  const ok=()=>{b.textContent='✓ Copiado';setTimeout(()=>b.textContent='📋 Copiar reporte',2500);};
+  if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok).catch(()=>{});else ok();}
+
+// ---------- progreso ----------
+function renderChart(divId,series,labels,maxY){
+  const W=640,H=210,P=34,cont=document.getElementById(divId);if(!cont)return;const n=labels.length;
+  const xs=i=>P+i*(W-2*P)/(n-1),ys=v=>H-P-(v/maxY)*(H-2*P);
+  let s='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto">';
+  for(let g=0;g<=4;g++){const y=H-P-g*(H-2*P)/4;s+=`<line x1="${P}" y1="${y}" x2="${W-P}" y2="${y}" stroke="#E2EBF2"/><text x="${P-6}" y="${y+4}" fill="#7B8894" font-size="10" text-anchor="end">${Math.round(g*maxY/4)}</text>`;}
+  labels.forEach((l,i)=>s+=`<text x="${xs(i)}" y="${H-P+16}" fill="#7B8894" font-size="10" text-anchor="middle">S${l}</text>`);
+  series.forEach(sr=>{let d='',st=false;sr.data.forEach((v,i)=>{if(v==null)return;d+=(st?' L':'M')+xs(i)+' '+ys(v);st=true;});
+    s+=`<path d="${d}" fill="none" stroke="${sr.color}" stroke-width="2.5"/>`;
+    sr.data.forEach((v,i)=>{if(v==null)return;s+=`<circle cx="${xs(i)}" cy="${ys(v)}" r="3.5" fill="${sr.color}"/><text x="${xs(i)}" y="${ys(v)-8}" fill="${sr.color}" font-size="10" font-weight="700" text-anchor="middle">${v}</text>`;});});
+  cont.innerHTML=s+'</svg><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">'+series.map(x=>`<span style="font-size:11px;color:${x.color}">● ${x.name}</span>`).join('')+'</div>';
+}
+function pintarProgreso(){
+  renderChart('chart-pushups',[{name:'Total AMRAP',color:'#5F829B',data:HISTORIAL.pushups_total},{name:'Corridas',color:'#4E9A73',data:HISTORIAL.pushups_corridos}],HISTORIAL.semanas,60);
+  renderChart('chart-core',[{name:'Abd. militares',color:'#4E9A73',data:HISTORIAL.abd_mil},{name:'Plancha (s)',color:'#C48A2C',data:HISTORIAL.plancha_seg},{name:'Hollow (s)',color:'#8DA9BD',data:HISTORIAL.hollow_seg}],HISTORIAL.semanas,170);
+  document.getElementById('hitos').innerHTML=HISTORIAL.semanas.map((s,i)=>'<b>S'+s+':</b> '+HISTORIAL.carrera[i]).join('<br>');
+  const rows=Object.keys(datos.dias||{}).filter(k=>{const m=datos.dias[k].m||{};return GF.some(([id])=>m[id]);}).sort().reverse().slice(0,12);
+  document.getElementById('garmin-tbl').innerHTML=rows.length?'<table><tr><th>Día</th><th>Sesión</th><th>FC prom</th><th>FC máx</th><th>Cad.</th><th>Rod.</th></tr>'+rows.map(k=>{const m=datos.dias[k].m;return `<tr><td>${parseISO(k).getDate()}/${parseISO(k).getMonth()+1}</td><td>${PLAN[k]?PLAN[k].ic:''}</td><td>${m.fcp||'—'}</td><td>${m.fcm||'—'}</td><td>${m.cad||'—'}</td><td>${m.rod||'—'}</td></tr>`;}).join('')+'</table>':'<div class="muted">Aún no hay datos. Llénalos en cada sesión y aquí verás tu evolución.</div>';
+}
+
+// ---------- navegación ----------
+function nav(v,b){document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById('v-'+v).classList.add('on');
+  if(v==='progreso')pintarProgreso();if(v==='reporte')pintarRep();window.scrollTo({top:0});}
+function render(fromSync){
+  const act=document.activeElement;const editando=act&&(act.id==='nota'||String(act.id).startsWith('g-'));
+  pintarCal();pintarNext();
+  if(selDia&&!(fromSync&&editando))abrir(selDia,true);
+  document.getElementById('sub').textContent='Semana '+semDe(hoy())+' · '+fLarga(hoy());
+}
+window.onload=function(){
+  cargarLocal();armarHist();const H=hoy();vMes=new Date(parseISO(H).getFullYear(),parseISO(H).getMonth(),1);
+  repLunes=lunesDe(H);selDia=H;render();if(!SCRIPT_URL)mostrarConfigURL();else sincronizar();setInterval(()=>{if(SCRIPT_URL)sincronizar();},120000);
+};
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',5000);}
+// PWA — service worker (mismo esquema que Finanzas): el caché lleva la versión,
+// así el teléfono no se queda pegado en una versión anterior.
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(reg=>{
+      reg.update().catch(()=>{});
+      setInterval(()=>reg.update().catch(()=>{}),3600000);
+      reg.addEventListener('updatefound',()=>{const n=reg.installing;if(!n)return;
+        n.addEventListener('statechange',()=>{if(n.state==='installed'&&navigator.serviceWorker.controller)toast('🔄 Versión nueva lista — ciérrala y ábrela de nuevo');});});
+    }).catch(e=>console.warn('[sw]',e));
+  });
+}
+</script>
+</body>
+</html>
