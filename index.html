@@ -89,6 +89,7 @@ pre{white-space:pre-wrap;font:12px/1.5 'Inter',sans-serif;background:#F7FAFC !im
 .ov .bx{background:#FFFFFF !important;border-radius:16px;padding:18px;max-width:420px;width:100%;}
 .ov input{width:100%;border:1px solid #D9E2EA;border-radius:8px;padding:10px;font:13px 'Inter',sans-serif;margin:10px 0;}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#2B3742;color:#fff;font-size:13px;padding:10px 14px;border-radius:10px;z-index:120;display:none;}
+.reloj{margin:8px 0;padding:8px 10px;border-radius:10px;background:var(--hl,#EEF3F7);border:1px solid var(--soft,#E2EBF2);font-size:13px;line-height:1.45}
 </style>
 </head>
 <body>
@@ -255,6 +256,15 @@ function pintarNext(){
 }
 
 // ---------- día ----------
+const RELOJ={
+ trote:'Actividad <b>Cinta</b> · Alerta FC alta <b>ACTIVADA en 150</b> (día suave). Al terminar: Calibrar y guardar con los km de la trotadora.',
+ fondo:'Actividad <b>Cinta</b> · Alerta FC alta <b>ACTIVADA en 150</b> (día suave). Al terminar: Calibrar y guardar. El pecho corto va aparte en <b>Fuerza</b> (LAP al terminar y al empezar cada serie).',
+ intervalos:'Actividad <b>Cinta</b> · Alerta FC alta <b>DESACTIVADA</b> (día fuerte, el pulso pasa de 150). LAP al empezar cada repetición y cada descanso. Calibrar y guardar.',
+ ritmo:'Actividad <b>Cinta</b> · Alerta FC alta <b>DESACTIVADA</b> (día fuerte). LAP al empezar cada bloque. Calibrar y guardar.',
+ pecho:'Actividad <b>Fuerza</b> · LAP al terminar cada serie y LAP al empezar la siguiente. Las repeticiones del test las anotas tú.',
+ piernas:'Actividad <b>Fuerza</b> · LAP al terminar cada serie y LAP al empezar la siguiente.',
+ abd:'Actividad <b>Fuerza</b> · LAP al terminar cada serie y LAP al empezar la siguiente.'
+};
 const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function abrir(k,noScroll){
   selDia=k;if(parseISO(k).getMonth()!==vMes.getMonth()||parseISO(k).getFullYear()!==vMes.getFullYear())vMes=new Date(parseISO(k).getFullYear(),parseISO(k).getMonth(),1);
@@ -263,6 +273,7 @@ function abrir(k,noScroll){
   let h='<div class="card">';
   h+=`<div class="sess-h"><div><div class="d">${fLarga(k)} · Semana ${semDe(k)}${p&&p.hora?' · '+p.hora:''}</div><div class="tt">${p?p.ic+' '+p.tit:'Sin sesión planificada'}</div></div><div class="du">${p?p.dur:''}</div></div>`;
   if(p&&p.obj)h+=`<div class="obj">🎯 ${p.obj}</div>`;
+  if(p&&RELOJ[p.t])h+=`<div class="reloj">⌚ <b>Reloj:</b> ${RELOJ[p.t]}</div>`;
   if(hs.length){h+='<div class="hist"><b>Registro de versiones anteriores</b><br>'+hs.map(x=>`${tipoHist(x.id)} <b>${nombreId(x.id)}</b> (sem ${x.w})${x.ok?' ✓':''}: ${esc(x.txt)}`).join('<br><br>')+'</div>';}
   const editable=!!p||!!d.nota;
   if(p&&p.t!=='descanso'||d.nota){
