@@ -422,7 +422,7 @@
   "ic": "🏃",
   "tit": "Trote moderado 25 min",
   "dur": "40 min",
-  "obj": "10.5 km/h · 1% · RPE 6 · debes poder hablar frases cortas",
+  "obj": "10 km/h · 1% · RPE 5-6 · FC promedio ≤150 · debes poder hablar frases cortas",
   "bloques": [
    {
     "f": "Antes",
@@ -455,8 +455,8 @@
     "items": [
      {
       "n": "Trote continuo",
-      "d": "25 min · 10.5 km/h · 1%",
-      "c": "Ritmo constante. Tronco erguido, brazos atrás a 90°, pasos cortos y rápidos. Si la rodilla pasa de 2/10, cortas ahí.",
+      "d": "25 min · 10 km/h · 1%",
+      "c": "Bajamos de 10.5 a 10 km/h porque el sábado a 10 km/h tu pulso promedio fue 160 (la meta en días suaves es ≤150). Si pasa de 150 por varios minutos, baja a 9.5 km/h. Tronco erguido, brazos atrás a 90°, pasos cortos y rápidos (165-170 por minuto). Si la rodilla pasa de 2/10, cortas ahí.",
       "yt": "tecnica de carrera trotadora postura",
       "k": 1
      }
@@ -473,7 +473,10 @@
     ]
    }
   ],
-  "hora": "Madrugada · entras 08:00"
+  "hora": "Madrugada · entras 08:00",
+  "tips": [
+   "Configura en el Garmin una alerta de pulso a 150 para no pasarte. Cadencia: el sábado diste 154 pasos/min; busca 165-170 con pasos cortos y rápidos."
+  ]
  },
  "2026-11-03": {
   "t": "intervalos",
@@ -552,7 +555,8 @@
    }
   ],
   "tips": [
-   "Si la serie 4 sale a RPE 9+, la última va a 12.0 km/h. Si todas salen a RPE ≤8, en dos semanas sube 0.5 km/h."
+   "Si la serie 4 sale a RPE 9+, la última va a 12.0 km/h. Si todas salen a RPE ≤8, en dos semanas sube 0.5 km/h.",
+   "Primera sesión de intervalos tras el retorno: si una serie no sale completa, para y anótalo; no la fuerces. Cadencia: el sábado diste 154 pasos/min; busca 165-170 con pasos cortos y rápidos."
   ],
   "hora": "05:30 · entras 09:00"
  },
@@ -667,9 +671,9 @@
  "2026-11-05": {
   "t": "ritmo",
   "ic": "⏱️",
-  "tit": "Ritmo sostenido 2×1.5 km @12",
+  "tit": "Ritmo sostenido 3×1 km @12.5",
   "dur": "50 min",
-  "obj": "2 bloques de 1.5 km a 12 km/h · descanso 3 min trotando a 6 · 1.5%",
+  "obj": "3 bloques de 1 km a 12.5 km/h · descanso 2:30 trotando a 6 · 1.5%",
   "bloques": [
    {
     "f": "Antes",
@@ -708,13 +712,19 @@
     "items": [
      {
       "n": "Bloque 1",
-      "d": "1.5 km @ 12 km/h · 1.5% → 3 min a 6 km/h",
+      "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h",
       "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.",
       "k": 1
      },
      {
       "n": "Bloque 2",
-      "d": "1.5 km @ 12 km/h · 1.5% → 3 min a 6 km/h",
+      "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h",
+      "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.",
+      "k": 1
+     },
+     {
+      "n": "Bloque 3",
+      "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h",
       "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.",
       "k": 1
      }
@@ -732,7 +742,9 @@
    }
   ],
   "tips": [
-   "Este es el trabajo que más se parece a la prueba: aprender a sostener un ritmo incómodo sin parar."
+   "Igual que el jueves pasado porque no quedó registrado: así sabemos si 12.5 km/h ya te sale con RPE 8 o menos.",
+   "Este es el trabajo que más se parece a la prueba: aprender a sostener un ritmo incómodo sin parar.",
+   "Anota al final el RPE y si completaste los 3 bloques. Cadencia: el sábado diste 154 pasos/min; busca 165-170 con pasos cortos y rápidos."
   ],
   "hora": "05:30 · entras 09:00"
  },
@@ -802,9 +814,9 @@
  "2026-11-07": {
   "t": "fondo",
   "ic": "🏃",
-  "tit": "Fondo suave 35 min + pecho corto",
-  "dur": "65 min",
-  "obj": "10 km/h · 1.5% · RPE ≤6 · luego pecho corto",
+  "tit": "Fondo suave 30 min + pecho corto",
+  "dur": "60 min",
+  "obj": "9.5 km/h · 1.5% · RPE ≤6 · FC promedio ≤150 · luego pecho corto",
   "bloques": [
    {
     "f": "Antes",
@@ -837,8 +849,8 @@
     "items": [
      {
       "n": "Trote continuo",
-      "d": "35 min · 10 km/h · 1.5%",
-      "c": "Base aeróbica: suave de verdad. Debes poder hablar. Si en el min 20 la rodilla pasa de 2/10, cortas.",
+      "d": "30 min · 9.5 km/h · 1.5%",
+      "c": "Mismo tiempo que el sábado pasado pero 0.5 km/h más lento: a 10 km/h tu pulso promedio fue 160 y en un fondo debe quedar en 150 o menos. Lento es lo correcto aquí: así se construye la base. Pasos cortos y rápidos (165-170 por minuto). Si en el min 20 la rodilla pasa de 2/10, cortas.",
       "k": 1
      }
     ]
@@ -876,7 +888,10 @@
     ]
    }
   ],
-  "hora": "Sin horario"
+  "hora": "Sin horario",
+  "tips": [
+   "Si a 9.5 km/h el pulso sigue arriba de 150, baja la inclinación a 1% antes de bajar más la velocidad."
+  ]
  },
  "2026-11-08": {
   "t": "descanso",
