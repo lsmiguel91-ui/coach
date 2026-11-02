@@ -129,7 +129,7 @@ def build(A,out):
         fig,axs=plt.subplots(1,2,figsize=(7.4,2.6))
         for ax,key,apr,meta,tt in [(axs[0],'abd',52,58,'Abd. militares (1\'30")'),(axs[1],'push',43,48,'Push-ups (1\'30")')]:
             xs=[f"S{s}" for s in F['semanas']]; ys=[v if v is not None else None for v in F.get(key,[])]
-            ax.plot(xs,ys,marker='o',color=PRI,lw=2); ax.axhline(apr,ls='--',color=WARN,lw=1); ax.axhline(meta,ls='--',color=OK,lw=1)
+            xi=list(range(len(xs))); ax.plot(xi,[float('nan') if v is None else v for v in ys],marker='o',color=PRI,lw=2); ax.set_xticks(xi); ax.set_xticklabels(xs); ax.axhline(apr,ls='--',color=WARN,lw=1); ax.axhline(meta,ls='--',color=OK,lw=1)
             n=len(xs)-1; ax.text(n,apr-3.2,f'aprobar {apr}',fontsize=7,color=WARN,ha='right'); ax.text(n,meta+1,f'meta {meta}',fontsize=7,color=OK,ha='right')
             ax.set_title(tt,fontsize=9,color=TXT); ax.tick_params(axis='x',labelsize=7,rotation=45)
             vals=[v for v in ys if v is not None]; ax.set_ylim(min(vals+[apr])-10 if vals else 0,max(vals+[meta])+8)
