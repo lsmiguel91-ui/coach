@@ -22,7 +22,7 @@ Tipos válidos en plan.json: trote, intervalos, ritmo, fondo, pecho, piernas, ab
 2. Días suaves (trote, fondo): FC prom ≤150. Si salió >150 → bajar 0.5 km/h o mantener; si ≤145 dos semanas seguidas → subir 0.2-0.3 km/h o +5 min.
 3. Intervalos: avanzar (+0.2-0.3 km/h, o +1 serie, o -15 s descanso) solo si completó todas las series con esfuerzo (RPE) ≤8. Si falló una serie → mantener.
 4. Ritmo: avanzar (+0.2 km/h o +250 m por bloque) si completó con RPE ≤8.
-5. Cadencia objetivo 165-170: si está por debajo, recordarlo en la sesión ("pasos cortos y rápidos").
+5. Cadencia objetivo 165-170: si está por debajo, recordarlo en la sesión ("pasos cortos y rápidos"). Alertas del reloj (Cinta): cadencia baja 160 siempre activa, cadencia alta desactivada; FC alta 150 solo en trote/fondo. Cuando su cadencia media en días suaves sea ≥165 dos semanas seguidas, indícale subir la alerta baja a 165.
 6. Abd. militares: series fijas hasta que todas salgan limpias sin fatiga final; luego +5 reps por serie. Push-ups: mantener volumen moderado (no agotar antes del test).
 7. Rodilla derecha (historial de dolor medial bajo la articulación): dolor ≥3/10 → la semana siguiente baja impacto (trote → bici o caminata inclinada, sin intervalos) y avísale. 1-2/10 → mantener, no subir carga de carrera.
 8. Sueño <6.5 h varios días o Readiness bajo → no subir carga esa semana.
