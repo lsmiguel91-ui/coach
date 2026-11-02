@@ -2,7 +2,7 @@
 // El nombre del caché lleva la versión de la app: al publicar una versión nueva
 // cambia el nombre, se descarta el caché viejo y el teléfono deja de quedarse
 // pegado en una versión anterior.
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = 'coach-' + VERSION;
 
 // Lo mínimo para que la app abra sin señal.
@@ -47,6 +47,9 @@ self.addEventListener('fetch', e => {
   // Los datos NUNCA se cachean: el Apps Script siempre va a la red.
   // Si se cachearan, la app mostraría saldos viejos sin avisar.
   if (url.hostname === 'script.google.com' || url.hostname.endsWith('.googleusercontent.com')) return;
+
+  // El plan semanal: siempre de la red (cambia cada domingo); sin señal, la app usa su copia guardada.
+  if (url.pathname.endsWith('plan.json')) return;
 
   // Documento: red primero, para que una versión nueva entre de inmediato.
   // Sin señal, cae al caché.
