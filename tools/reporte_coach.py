@@ -2,8 +2,13 @@
 """Generador del reporte semanal en PDF — Coach de Luis Miguel.
 Uso: python3 reporte_coach.py analisis.json salida.pdf
 El JSON de análisis lo escribe Claude cada domingo (datos + textos).
+PDF liviano: fuentes estándar (Helvetica) y gráficos vectoriales; si hay qpdf, se recomprime al final.
 """
-import json, sys, io, os, glob
+import json, sys, io, os, glob, subprocess
+try:
+    import svglib  # gráficos vectoriales: PDF liviano (~15 KB) que se puede subir a Drive automáticamente
+except ImportError:
+    subprocess.run([sys.executable,'-m','pip','install','-q','--break-system-packages','svglib'],check=True)
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -21,23 +26,18 @@ PRI='#5F829B'; PRI2='#8DA9BD'; SOFT='#E2EBF2'; HL='#EEF3F7'; TXT='#2B3742'; MUT=
 OK='#4E9A73'; WARN='#E0A93B'; BAD='#C8574B'; BORDER='#D9E2EA'
 SEM={'verde':(OK,'','VAS MEJORANDO'),'amarillo':(WARN,'','ATENCIÓN'),'rojo':(BAD,'','HAY QUE AJUSTAR')}
 
-def _font():
-    cands=['/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf','/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf']
-    cands+=glob.glob('/usr/share/fonts/**/LiberationSans-Regular.ttf',recursive=True)+glob.glob('/usr/share/fonts/**/DejaVuSans.ttf',recursive=True)
-    reg=next(p for p in cands if os.path.exists(p))
-    bold=reg.replace('Regular','Bold').replace('DejaVuSans.ttf','DejaVuSans-Bold.ttf')
-    pdfmetrics.registerFont(TTFont('F',reg)); pdfmetrics.registerFont(TTFont('FB',bold if os.path.exists(bold) else reg))
-_font()
+plt.rcParams['svg.fonttype']='none'; plt.rcParams['font.family']='sans-serif'; plt.rcParams['font.sans-serif']=['Helvetica','Arial','DejaVu Sans']
 plt.rcParams.update({'font.size':9,'axes.edgecolor':BORDER,'axes.labelcolor':MUT,'xtick.color':MUT,'ytick.color':MUT,
                      'axes.spines.top':False,'axes.spines.right':False,'axes.grid':True,'grid.color':HL,'grid.linewidth':0.8})
 
-S=lambda **k: ParagraphStyle('x',fontName=k.pop('f','F'),fontSize=k.pop('s',9.5),leading=k.pop('l',13.5),textColor=k.pop('c',TXT),**k)
-H1=S(f='FB',s=17,l=21,c=PRI); H2=S(f='FB',s=12.5,l=16,c=TXT,spaceBefore=6,spaceAfter=4)
+S=lambda **k: ParagraphStyle('x',fontName=k.pop('f','Helvetica'),fontSize=k.pop('s',9.5),leading=k.pop('l',13.5),textColor=k.pop('c',TXT),**k)
+H1=S(f='Helvetica-Bold',s=17,l=21,c=PRI); H2=S(f='Helvetica-Bold',s=12.5,l=16,c=TXT,spaceBefore=6,spaceAfter=4)
 P=S(); PM=S(c=MUT,s=8.5,l=11.5); SMALL=S(s=8,l=10.5,c=MUT)
 
 def fig_img(fig,w=170):
-    b=io.BytesIO(); fig.savefig(b,format='png',dpi=200,bbox_inches='tight'); plt.close(fig); b.seek(0)
-    im=Image(b); r=im.imageHeight/im.imageWidth; im.drawWidth=w*mm; im.drawHeight=w*mm*r; return im
+    from svglib.svglib import svg2rlg
+    b=io.BytesIO(); fig.savefig(b,format='svg',bbox_inches='tight'); plt.close(fig); b.seek(0)
+    dr=svg2rlg(b); k=w*mm/dr.width; dr.width*=k; dr.height*=k; dr.scale(k,k); return dr
 
 def num(x):
     try: return float(str(x).replace(',','.'))
@@ -49,7 +49,7 @@ def box(content,bg=HL,border=BORDER,pad=8):
       ('TOPPADDING',(0,0),(-1,-1),pad),('BOTTOMPADDING',(0,0),(-1,-1),pad)])); return t
 
 def kpis(items):
-    cells=[[Paragraph(f'<font name="FB" size="16" color="{PRI}">{v}</font><br/><font size="7.5" color="{MUT}">{l}</font>',S(alignment=1,l=17)) for v,l in items]]
+    cells=[[Paragraph(f'<font name="Helvetica-Bold" size="16" color="{PRI}">{v}</font><br/><font size="7.5" color="{MUT}">{l}</font>',S(alignment=1,l=17)) for v,l in items]]
     t=Table(cells,colWidths=[170*mm/len(items)]*len(items))
     t.setStyle(TableStyle([('BOX',(0,0),(-1,-1),0.6,colors.HexColor(BORDER)),('INNERGRID',(0,0),(-1,-1),0.6,colors.HexColor(BORDER)),
       ('BACKGROUND',(0,0),(-1,-1),colors.white),('TOPPADDING',(0,0),(-1,-1),8),('BOTTOMPADDING',(0,0),(-1,-1),8)])); return t
@@ -57,9 +57,9 @@ def kpis(items):
 def header_footer(c,doc):
     c.saveState(); W,H=A4
     c.setFillColor(colors.HexColor(PRI)); c.rect(0,H-14*mm,W,14*mm,fill=1,stroke=0)
-    c.setFillColor(colors.white); c.setFont('FB',11); c.drawString(20*mm,H-9*mm,'Coach de Luis Miguel · Reporte semanal')
-    c.setFont('F',9); c.drawRightString(W-20*mm,H-9*mm,doc._sub)
-    c.setFillColor(colors.HexColor(MUT)); c.setFont('F',7.5); c.drawRightString(W-20*mm,10*mm,f'Página {doc.page}')
+    c.setFillColor(colors.white); c.setFont('Helvetica-Bold',11); c.drawString(20*mm,H-9*mm,'Coach de Luis Miguel · Reporte semanal')
+    c.setFont('Helvetica',9); c.drawRightString(W-20*mm,H-9*mm,doc._sub)
+    c.setFillColor(colors.HexColor(MUT)); c.setFont('Helvetica',7.5); c.drawRightString(W-20*mm,10*mm,f'Página {doc.page}')
     c.restoreState()
 
 DIAS=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom']
@@ -74,7 +74,7 @@ def build(A,out):
     E=[]
     # ---- portada / resumen ----
     E.append(Paragraph(f"Semana {A['semana']}",H1)); E.append(Paragraph(A['rango'],PM)); E.append(Spacer(1,8))
-    sem_t=Table([[Paragraph(f'<font name="FB" size="13" color="white">{sem[2]}</font><br/><font color="white" size="9.5">{A["titular"]}</font>',S(l=15))]],colWidths=[170*mm])
+    sem_t=Table([[Paragraph(f'<font name="Helvetica-Bold" size="13" color="white">{sem[2]}</font><br/><font color="white" size="9.5">{A["titular"]}</font>',S(l=15))]],colWidths=[170*mm])
     sem_t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,-1),colors.HexColor(sem[0])),('LEFTPADDING',(0,0),(-1,-1),12),('TOPPADDING',(0,0),(-1,-1),10),('BOTTOMPADDING',(0,0),(-1,-1),10)]))
     E+= [sem_t,Spacer(1,10)]
     plan=[d for d in dias if d.get('tipo')!='descanso']; hechos=[d for d in plan if d.get('hecho')]
@@ -90,13 +90,13 @@ def build(A,out):
     row=[];row2=[]
     for i,d in enumerate(dias):
         col=OK if d.get('hecho') else (MUT if d.get('tipo')=='descanso' else WARN)
-        mark='✓' if d.get('hecho') else ('—' if d.get('tipo')=='descanso' else '✗')
-        row.append(Paragraph(f'<font name="FB" color="{col}">{DIAS[i]} {mark}</font>',S(alignment=1,s=9)))
+        mark='(sí)' if d.get('hecho') else ('' if d.get('tipo')=='descanso' else '(no)')
+        row.append(Paragraph(f'<font name="Helvetica-Bold" color="{col}">{DIAS[i]} {mark}</font>',S(alignment=1,s=9)))
         row2.append(Paragraph(d.get('plan','')[:38],S(alignment=1,s=7,l=9,c=MUT)))
     t=Table([row,row2],colWidths=[170*mm/7]*7)
     t.setStyle(TableStyle([('BOX',(0,0),(-1,-1),0.6,colors.HexColor(BORDER)),('INNERGRID',(0,0),(-1,-1),0.4,colors.HexColor(HL)),('VALIGN',(0,0),(-1,-1),'TOP')]))
-    E+= [Paragraph('Cumplimiento de la semana',H2),t,Spacer(1,4),Paragraph('✓ hecha · ✗ no registrada · — descanso',SMALL),Spacer(1,8)]
-    E.append(box(Paragraph('<font name="FB" color="%s">Cómo leer este reporte</font><br/>Verde = vas bien, amarillo = cuidado con algo puntual, rojo = hay que cambiar el plan. Cada gráfico tiene debajo una explicación en palabras simples de qué significa para ti.'%PRI,P)))
+    E+= [Paragraph('Cumplimiento de la semana',H2),t,Spacer(1,4),Paragraph('(sí) hecha · (no) no registrada · vacío = descanso',SMALL),Spacer(1,8)]
+    E.append(box(Paragraph('<font name="Helvetica-Bold" color="%s">Cómo leer este reporte</font><br/>Verde = vas bien, amarillo = cuidado con algo puntual, rojo = hay que cambiar el plan. Cada gráfico tiene debajo una explicación en palabras simples de qué significa para ti.'%PRI,P)))
     # ---- carrera ----
     E.append(Spacer(1,6)); E.append(Paragraph('Carrera',H2))
     if runs:
@@ -145,29 +145,33 @@ def build(A,out):
         E.append(fig_img(fig))
     rod=[(DIAS[i],num(d.get('rod'))) for i,d in enumerate(dias) if num(d.get('rod')) is not None]
     if rod:
-        E.append(Paragraph('Rodilla: '+' · '.join(f'{a} <font name="FB" color="{OK if v<3 else BAD}">{v:.0f}/10</font>' for a,v in rod),P))
+        E.append(Paragraph('Rodilla: '+' · '.join(f'{a} <font name="Helvetica-Bold" color="{OK if v<3 else BAD}">{v:.0f}/10</font>' for a,v in rod),P))
     E.append(Paragraph(A.get('txt_recuperacion',''),P))
     # ---- ajustes ----
-    aj=''.join(f'<font name="FB" color="{PRI}">{i+1}.</font> {a}<br/><br/>' for i,a in enumerate(A.get('ajustes',[])))
+    aj=''.join(f'<font name="Helvetica-Bold" color="{PRI}">{i+1}.</font> {a}<br/><br/>' for i,a in enumerate(A.get('ajustes',[])))
     E.append(KeepTogether([Spacer(1,8),Paragraph('Ajustes para la próxima semana',H2),box(Paragraph(aj or 'Sin cambios.',P),bg='#F7FAFC')]))
     PS=A.get('plan_siguiente')
     if PS and PS.get('dias'):
         E.append(PageBreak())
         E.append(Paragraph('Tu plan de la próxima semana',H1)); E.append(Paragraph(PS.get('rango',''),PM)); E.append(Spacer(1,8))
-        if PS.get('cambios'): E+= [box(Paragraph('<font name="FB" color="%s">Qué cambia y por qué</font><br/>%s'%(PRI,PS['cambios']),P)),Spacer(1,10)]
-        rows=[[Paragraph('<font name="FB" color="white">Día</font>',S(s=9)),Paragraph('<font name="FB" color="white">Sesión</font>',S(s=9)),Paragraph('<font name="FB" color="white">Cambio</font>',S(s=9))]]
+        if PS.get('cambios'): E+= [box(Paragraph('<font name="Helvetica-Bold" color="%s">Qué cambia y por qué</font><br/>%s'%(PRI,PS['cambios']),P)),Spacer(1,10)]
+        rows=[[Paragraph('<font name="Helvetica-Bold" color="white">Día</font>',S(s=9)),Paragraph('<font name="Helvetica-Bold" color="white">Sesión</font>',S(s=9)),Paragraph('<font name="Helvetica-Bold" color="white">Cambio</font>',S(s=9))]]
         for d in PS['dias']:
             ch=d.get('cambio','') or '='
             col=TXT if ch=='=' else PRI
-            rows.append([Paragraph(f'<font name="FB">{d.get("dia","")}</font>',S(s=9)),Paragraph(d.get('sesion',''),S(s=9,l=12)),Paragraph(f'<font color="{col}">{ch}</font>',S(s=8.5,l=11))])
+            rows.append([Paragraph(f'<font name="Helvetica-Bold">{d.get("dia","")}</font>',S(s=9)),Paragraph(d.get('sesion',''),S(s=9,l=12)),Paragraph(f'<font color="{col}">{ch}</font>',S(s=8.5,l=11))])
         t=Table(rows,colWidths=[24*mm,96*mm,50*mm],repeatRows=1)
         t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor(PRI)),('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,colors.HexColor(HL)]),
           ('BOX',(0,0),(-1,-1),0.6,colors.HexColor(BORDER)),('INNERGRID',(0,0),(-1,-1),0.4,colors.HexColor(BORDER)),('VALIGN',(0,0),(-1,-1),'MIDDLE'),
           ('TOPPADDING',(0,0),(-1,-1),6),('BOTTOMPADDING',(0,0),(-1,-1),6)]))
         E+= [t,Spacer(1,8),Paragraph('Esta semana ya está cargada en tu app. Si quieres cambiar algo, respóndeme en esta misma conversación (por ejemplo: "exígeme más en intervalos" o "el jueves no puedo").',SMALL)]
     if A.get('nota_strava'): E+= [Spacer(1,6),Paragraph(A['nota_strava'],SMALL)]
-    E+= [Spacer(1,10),Paragraph('<font name="FB">Glosario rápido</font> — <b>Pulso promedio</b>: qué tan fuerte trabajó tu corazón; en días suaves debe quedar en 150 o menos. <b>Cadencia</b>: pasos por minuto; más pasos y más cortos = menos impacto en la rodilla. <b>Readiness</b>: qué tan recuperado amaneces según el reloj (más alto = mejor). <b>RPE</b>: tu sensación de esfuerzo del 1 al 10.',SMALL)]
+    E+= [Spacer(1,10),Paragraph('<font name="Helvetica-Bold">Glosario rápido</font> — <b>Pulso promedio</b>: qué tan fuerte trabajó tu corazón; en días suaves debe quedar en 150 o menos. <b>Cadencia</b>: pasos por minuto; más pasos y más cortos = menos impacto en la rodilla. <b>Readiness</b>: qué tan recuperado amaneces según el reloj (más alto = mejor). <b>RPE</b>: tu sensación de esfuerzo del 1 al 10.',SMALL)]
     doc.build(E)
 
 if __name__=='__main__':
-    A=json.load(open(sys.argv[1],encoding='utf-8')); build(A,sys.argv[2]); print('PDF:',sys.argv[2])
+    A=json.load(open(sys.argv[1],encoding='utf-8')); out=sys.argv[2]; build(A,out)
+    if subprocess.run(['which','qpdf'],capture_output=True).returncode==0:
+        tmp=out+'.tmp'
+        if subprocess.run(['qpdf','--recompress-flate','--compression-level=9','--object-streams=generate',out,tmp]).returncode==0: os.replace(tmp,out)
+    print('PDF:',out,f'({os.path.getsize(out)//1024} KB)')
