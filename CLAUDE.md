@@ -31,6 +31,22 @@ Tipos válidos en plan.json: trote, intervalos, ritmo, fondo, pecho, piernas, ab
 11. Protocolos que siempre van: test de la grada + foam roller antes de correr; enfriamiento anti-mareo 5 min @6 km/h al final de cada carrera.
 12. Mencionar en "obj" la velocidad, inclinación y RPE esperado; en los items, "d" = cantidades y "c" = cómo hacerlo, en palabras simples. YouTube: campo "yt" con texto de búsqueda (nunca links directos).
 
+## Cómo se leen y registran las métricas (cinta + Garmin)
+Reglas fijas desde el 3-nov-2026. En cinta el reloj estima la distancia con el acelerómetro de muñeca: subestima la carrera rápida y sobreestima la caminata. Por eso **el ritmo que muestra Garmin en cinta no sirve** para evaluar progreso.
+
+1. **Distancia**: siempre la que marca la cinta, ingresada en el reloj con "Calibrar y guardar" antes de guardar la actividad. Una vez guardada ya no se puede corregir.
+2. **Velocidad de las series**: se deduce de la velocidad de la banda y el tiempo del intervalo, nunca del "ritmo medio" de Garmin. Ese es el número que se compara contra la meta de 3219 m.
+3. **Pausa automática desactivada** en el perfil de Cinta. Con pausa activa el reloj se corta al bajar la banda entre series, se reanuda solo y ensucia los laps.
+4. **Laps basura**: al contar series, ignorar los intervalos de menos de ~20 s; son un LAP pulsado dos veces. (El 3-nov aparecían 6 intervalos de "Carrera", pero uno duraba 5.7 s: fueron 5 series, no 6.)
+5. **FC máxima**: siempre de Estadísticas → Frecuencia cardiaca máxima, de toda la actividad. Es un techo, no se recorta al límite de un lap.
+6. **FC promedio y cadencia**, según el tipo de día:
+   - Días continuos (trote, ritmo, fondo): de toda la actividad.
+   - Días con descansos (intervalos): **de las series**, no del total. Se leen en Intervalos → filtro "Carrera" → girar el teléfono a horizontal → fila Total. El promedio del total está diluido por las caminatas y no significa nada.
+   - Al evaluar, **no comparar la FC prom de un día de intervalos contra el umbral de 150** de la regla 2: ese umbral aplica solo a días continuos.
+7. **Potencia media de las series** (misma fila Total, en W y W/kg): es el mejor indicador de fatiga dentro de la sesión, porque no la afecta ni la calibración de la cinta ni el retardo de la FC. Si cae de forma sostenida entre la primera y la última serie, el volumen o la velocidad están altos aunque el RPE diga lo contrario.
+8. **Enfriamiento**: la regla 11 pide 5 min y en nov-2026 venía haciendo 2-3 min. Revisar las notas y recordárselo mientras no se cumpla; con la rodilla en 0-1/10 es justo el tramo que no conviene recortar.
+9. **Alerta de cadencia en el calentamiento**: a 8 km/h la alerta de cadencia baja (160) suena seguido. Es esperado y es útil: a esa velocidad 160 ppm equivale a una zancada de 0.83 m, perfectamente alcanzable. No desactivarla; usarla para entrar al trabajo con pasos cortos y rápidos.
+
 ## Formato de una sesión en plan.json
 "YYYY-MM-DD": {"t","ic" (emoji),"tit","dur","obj","hora","bloques":[{"f":"Nombre bloque","items":[{"n","d","c","yt"?,"k"?:1 si es el ejercicio clave}]}],"tips"?:[...]}
 Herramienta: `python3 tools/semana.py ver|copiar|validar plan.json ...`. Siempre `validar` antes de subir.
