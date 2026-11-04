@@ -68,12 +68,12 @@ RUN={'trote','intervalos','ritmo','fondo'}
 def build(A,out):
     dias=A['dias']; sem=SEM.get(A.get('semaforo','amarillo'),SEM['amarillo'])
     doc=BaseDocTemplate(out,pagesize=A4,leftMargin=20*mm,rightMargin=20*mm,topMargin=22*mm,bottomMargin=16*mm,
-                        title=f"Reporte semana {A['semana']}",author='Coach de Luis Miguel')
-    doc._sub=f"Semana {A['semana']} · {A['rango']}"
+                        title=f"Reporte semanal {A.get('rango','')}".strip(),author='Coach de Luis Miguel')
+    doc._sub=A.get('rango','')
     doc.addPageTemplates([PageTemplate(frames=[Frame(20*mm,16*mm,170*mm,A4[1]-38*mm,id='f')],onPage=header_footer)])
     E=[]
     # ---- portada / resumen ----
-    E.append(Paragraph(f"Semana {A['semana']}",H1)); E.append(Paragraph(A['rango'],PM)); E.append(Spacer(1,8))
+    E.append(Paragraph('Reporte semanal',H1)); E.append(Paragraph(A.get('rango',''),PM)); E.append(Spacer(1,8))
     sem_t=Table([[Paragraph(f'<font name="Helvetica-Bold" size="13" color="white">{sem[2]}</font><br/><font color="white" size="9.5">{A["titular"]}</font>',S(l=15))]],colWidths=[170*mm])
     sem_t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,-1),colors.HexColor(sem[0])),('LEFTPADDING',(0,0),(-1,-1),12),('TOPPADDING',(0,0),(-1,-1),10),('BOTTOMPADDING',(0,0),(-1,-1),10)]))
     E+= [sem_t,Spacer(1,10)]
@@ -128,7 +128,7 @@ def build(A,out):
     if F and F.get('semanas'):
         fig,axs=plt.subplots(1,2,figsize=(7.4,2.6))
         for ax,key,apr,meta,tt in [(axs[0],'abd',52,58,'Abd. militares (1\'30")'),(axs[1],'push',43,48,'Push-ups (1\'30")')]:
-            xs=[f"S{s}" for s in F['semanas']]; ys=[v if v is not None else None for v in F.get(key,[])]
+            xs=F.get('etiquetas') or [f"S{s}" for s in F['semanas']]; ys=[v if v is not None else None for v in F.get(key,[])]
             xi=list(range(len(xs))); ax.plot(xi,[float('nan') if v is None else v for v in ys],marker='o',color=PRI,lw=2); ax.set_xticks(xi); ax.set_xticklabels(xs); ax.axhline(apr,ls='--',color=WARN,lw=1); ax.axhline(meta,ls='--',color=OK,lw=1)
             n=len(xs)-1; ax.text(n,apr-3.2,f'aprobar {apr}',fontsize=7,color=WARN,ha='right'); ax.text(n,meta+1,f'meta {meta}',fontsize=7,color=OK,ha='right')
             ax.set_title(tt,fontsize=9,color=TXT); ax.tick_params(axis='x',labelsize=7,rotation=45)
