@@ -47,10 +47,31 @@ Reglas fijas desde el 3-nov-2026. En cinta el reloj estima la distancia con el a
 8. **Enfriamiento**: la regla 11 pide 5 min y en nov-2026 venía haciendo 2-3 min. Revisar las notas y recordárselo mientras no se cumpla; con la rodilla en 0-1/10 es justo el tramo que no conviene recortar.
 9. **Alerta de cadencia en el calentamiento**: a 8 km/h la alerta de cadencia baja (160) suena seguido. Es esperado y es útil: a esa velocidad 160 ppm equivale a una zancada de 0.83 m, perfectamente alcanzable. No desactivarla; usarla para entrar al trabajo con pasos cortos y rápidos.
 
+## Qué registra la app en cada día (estructura de datos)
+`datos.dias["YYYY-MM-DD"] = {nota, m:{}, e:{}, ok, f}` y eso es lo que llega a Drive.
+
+- **`m`** = métricas del día. Los campos que se muestran dependen del tipo de sesión, no son los mismos todos los días:
+  `trote`/`fondo` → fcp, fcm, cad, dist, rdy, sue, rod, rpe · `intervalos`/`ritmo` → los mismos **+ pot** (potencia media de las series) · `pecho`/`abd` → fcp, fcm, rdy, sue, rpe · `piernas` → esos + rod · `descanso` → rdy, sue, rod.
+  Si un día viejo trae campos que su tipo ya no muestra, se conservan: no se borran.
+- **`e`** = lo registrado ejercicio por ejercicio: `{"<id>": {n:"nombre", u:"reps"|"s", v:["12","12","10"], kg:"10"}}`. El id es el nombre del ejercicio en minúsculas y sin tildes, más su posición en el día.
+- **`nota`** = texto libre, ahora opcional: los números van en `e`, la nota es para lo que no es número.
+
+### Cómo decide la app qué pedir en cada ejercicio
+Lo deduce del campo `d` del propio ejercicio, así que **no hay que cambiar nada en plan.json** para que funcione:
+`3 × 12` → 3 casillas de repeticiones · `3 × 45 s` → 3 casillas de segundos · `4 × 8 · 10 kg` → 4 casillas + casilla de kg · `5 × 30 s · meta 18` → 5 casillas de repeticiones (manda la meta) · `meta 2:20` → una casilla de tiempo · AMRAP, `1'30"` o "sin pausa" → test de una sola casilla, sin prellenar, con la meta como pista.
+No se pide nada en calentamiento, enfriamiento, foam roller, test de la grada, drills, ni en nada que lleve km/h o series en metros: eso ya lo cubre el reloj.
+Para forzarlo desde plan.json: `"cap":{"u":"reps","ns":4,"v":"8","kg":"10"}` en el ejercicio, o `"cap":false` para que no pida nada.
+
+### Qué hacer con esto en la sesión semanal
+- Los gráficos de Progreso de la app ya combinan el histórico fijo (hasta la semana 17) con lo registrado en `e` de la semana 20 en adelante: push-ups AMRAP, abdominales militares, plancha y hollow.
+- Para el PDF, llenar `fuerza_detalle` en el JSON del reporte: `[{"dia":"Mié 4","filas":[["Press mancuernas banco plano","8·8·8·7 · 10 kg"],...]}]`. Si no se llena, el PDF sale igual que antes.
+- Al evaluar la regla 6, usar `e` y no la nota: ahí está cuántas repeticiones hizo de verdad en cada serie.
+
 ## Formato de una sesión en plan.json
 "YYYY-MM-DD": {"t","ic" (emoji),"tit","dur","obj","hora","bloques":[{"f":"Nombre bloque","items":[{"n","d","c","yt"?,"k"?:1 si es el ejercicio clave}]}],"tips"?:[...]}
 Herramienta: `python3 tools/semana.py ver|copiar|validar plan.json ...`. Siempre `validar` antes de subir.
 
 ## Publicar
 git add plan.json && git commit && git push origin main. No toques index.html ni sw.js en la sesión semanal.
+Si alguna vez sí se cambia index.html, hay que subir `VERSION` en sw.js (v5, v6…) o el teléfono se queda con la versión vieja en caché.
 Commits con la línea: Co-Authored-By: Claude <noreply@anthropic.com>
