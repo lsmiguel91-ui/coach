@@ -135,6 +135,25 @@ def build(A,out):
             vals=[v for v in ys if v is not None]; ax.set_ylim(min(vals+[apr])-10 if vals else 0,max(vals+[meta])+8)
         fig.tight_layout(); E.append(fig_img(fig))
     E.append(Paragraph(A.get('txt_fuerza',''),P))
+    # Detalle por ejercicio: viene de dias[fecha].e que registra la app.
+    FD=A.get('fuerza_detalle')
+    if FD:
+        rows=[[Paragraph(f'<font name="Helvetica-Bold" color="white">Día</font>',S(s=9)),
+               Paragraph(f'<font name="Helvetica-Bold" color="white">Ejercicio</font>',S(s=9)),
+               Paragraph(f'<font name="Helvetica-Bold" color="white">Registrado</font>',S(s=9))]]
+        for d in FD:
+            fil=d.get('filas',[])
+            for i,f in enumerate(fil):
+                ej,val=(f+['',''])[:2] if isinstance(f,list) else (f.get('ej',''),f.get('val',''))
+                rows.append([Paragraph(f'<font name="Helvetica-Bold">{d.get("dia","") if i==0 else ""}</font>',S(s=8.5,l=11)),
+                             Paragraph(str(ej),S(s=8.5,l=11)),Paragraph(str(val),S(s=8.5,l=11))])
+        if len(rows)>1:
+            t=Table(rows,colWidths=[24*mm,76*mm,70*mm],repeatRows=1)
+            t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor(PRI)),
+              ('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,colors.HexColor(HL)]),
+              ('BOX',(0,0),(-1,-1),0.6,colors.HexColor(BORDER)),('INNERGRID',(0,0),(-1,-1),0.4,colors.HexColor(BORDER)),
+              ('VALIGN',(0,0),(-1,-1),'MIDDLE'),('TOPPADDING',(0,0),(-1,-1),4),('BOTTOMPADDING',(0,0),(-1,-1),4)]))
+            E+=[Spacer(1,6),Paragraph('Detalle por ejercicio',H2),t]
     # ---- recuperación ----
     E.append(Paragraph('Recuperación',H2))
     if sue:
