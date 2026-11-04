@@ -64,6 +64,7 @@ Para forzarlo desde plan.json: `"cap":{"u":"reps","ns":4,"v":"8","kg":"10"}` en 
 
 ### Qué hacer con esto en la sesión semanal
 - Los gráficos de Progreso de la app ya combinan el histórico fijo (hasta la semana 17) con lo registrado en `e` de la semana 20 en adelante: push-ups AMRAP, abdominales militares, plancha y hollow.
+- **Las semanas se nombran por fechas, no por número.** En la app, en el reporte y en el PDF se escribe el rango ("2–8 nov", "30 nov–6 dic"), nunca "Semana 20". En el JSON del reporte, `rango` es lo que se imprime como subtítulo y `fuerza_hist.etiquetas` son las etiquetas del eje x (por ejemplo "2/11"); `semana` ya no se usa en el PDF.
 - Para el PDF, llenar `fuerza_detalle` en el JSON del reporte: `[{"dia":"Mié 4","filas":[["Press mancuernas banco plano","8·8·8·7 · 10 kg"],...]}]`. Si no se llena, el PDF sale igual que antes.
 - Al evaluar la regla 6, usar `e` y no la nota: ahí está cuántas repeticiones hizo de verdad en cada serie.
 

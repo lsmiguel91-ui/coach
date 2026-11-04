@@ -208,6 +208,15 @@ const semDe=s=>REF_SEM+Math.round((parseISO(lunesDe(s))-parseISO(REF_LUNES))/864
 const hoy=()=>iso(new Date());
 const DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 const fLarga=s=>{const d=parseISO(s);return DIAS[d.getDay()]+' '+d.getDate()+' '+d.toLocaleDateString('es-EC',{month:'short'}).replace('.','');};
+// Las semanas se nombran por sus fechas, no por un número correlativo.
+const mesCorto=s=>parseISO(s).toLocaleDateString('es-EC',{month:'short'}).replace('.','');
+const rangoDe=l=>{const f=addD(l,6);return mesCorto(l)===mesCorto(f)
+  ?parseISO(l).getDate()+'–'+parseISO(f).getDate()+' '+mesCorto(f)
+  :parseISO(l).getDate()+' '+mesCorto(l)+'–'+parseISO(f).getDate()+' '+mesCorto(f);};
+const rangoSem=k=>rangoDe(lunesDe(k));
+const lunesDeSem=w=>addD(REF_LUNES,(+w-REF_SEM)*7);
+const rangoDeSem=w=>rangoDe(lunesDeSem(w));
+const etiqSem=w=>{const l=lunesDeSem(w);return parseISO(l).getDate()+'/'+(parseISO(l).getMonth()+1);};
 
 // ---------- histórico (versiones anteriores, por fecha de la nota) ----------
 let HIST={};
@@ -346,10 +355,10 @@ function abrir(k,noScroll){
   pintarCal();
   const p=PLAN[k],d=(datos.dias||{})[k]||{nota:'',m:{},e:{},ok:false},hs=HIST[k]||[];
   let h='<div class="card">';
-  h+=`<div class="sess-h"><div><div class="d">${fLarga(k)} · Semana ${semDe(k)}${p&&p.hora?' · '+p.hora:''}</div><div class="tt">${p?p.ic+' '+p.tit:'Sin sesión planificada'}</div></div><div class="du">${p?p.dur:''}</div></div>`;
+  h+=`<div class="sess-h"><div><div class="d">${fLarga(k)} · Semana ${rangoSem(k)}${p&&p.hora?' · '+p.hora:''}</div><div class="tt">${p?p.ic+' '+p.tit:'Sin sesión planificada'}</div></div><div class="du">${p?p.dur:''}</div></div>`;
   if(p&&p.obj)h+=`<div class="obj">🎯 ${p.obj}</div>`;
   if(p&&RELOJ[p.t])h+=`<div class="reloj">⌚ <b>Reloj:</b> ${RELOJ[p.t]}</div>`;
-  if(hs.length){h+='<div class="hist"><b>Registro de versiones anteriores</b><br>'+hs.map(x=>`${tipoHist(x.id)} <b>${nombreId(x.id)}</b> (sem ${x.w})${x.ok?' ✓':''}: ${esc(x.txt)}`).join('<br><br>')+'</div>';}
+  if(hs.length){h+='<div class="hist"><b>Registro de versiones anteriores</b><br>'+hs.map(x=>`${tipoHist(x.id)} <b>${nombreId(x.id)}</b> (sem ${rangoDeSem(x.w)})${x.ok?' ✓':''}: ${esc(x.txt)}`).join('<br><br>')+'</div>';}
   const editable=!!p||!!d.nota;
   if(p&&p.t!=='descanso'||d.nota){
     h+=`<div class="notas-ph" id="notas-ph"></div><div class="notas" id="notas"><div class="l"><span>📝 NOTAS</span><span class="st" id="nst"></span></div><textarea id="nota" oninput="cambio()" onfocus="fijarNotas(true)" onblur="fijarNotas(false)" placeholder="Cómo te sentiste, series, rodilla, lo que quieras anotar…">${esc(d.nota)}</textarea></div>`;
@@ -381,8 +390,8 @@ window.addEventListener('scroll',posNotas,{passive:true});window.addEventListene
 // ---------- reporte ----------
 function semRep(n){repLunes=addD(repLunes,7*n);pintarRep();}
 function pintarRep(){
-  document.getElementById('rtitle').textContent='Semana '+semDe(repLunes)+' · '+parseISO(repLunes).getDate()+'/'+(parseISO(repLunes).getMonth()+1);
-  let t=`REPORTE SEMANA ${semDe(repLunes)} (desde ${fLarga(repLunes)})\n`;
+  document.getElementById('rtitle').textContent='Semana '+rangoSem(repLunes);
+  let t=`REPORTE SEMANA ${rangoSem(repLunes)}\n`;
   for(let i=0;i<7;i++){const k=addD(repLunes,i),p=PLAN[k],d=(datos.dias||{})[k],hs=HIST[k]||[];
     if(!p&&!d&&!hs.length)continue;
     t+=`\n${fLarga(k)} — ${p?p.tit:'(sin plan)'}${d&&d.ok?' ✓':''}\n`;
@@ -403,7 +412,7 @@ function renderChart(divId,series,labels,maxY){
   const xs=i=>P+i*(W-2*P)/(n-1),ys=v=>H-P-(v/maxY)*(H-2*P);
   let s='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto">';
   for(let g=0;g<=4;g++){const y=H-P-g*(H-2*P)/4;s+=`<line x1="${P}" y1="${y}" x2="${W-P}" y2="${y}" stroke="#E2EBF2"/><text x="${P-6}" y="${y+4}" fill="#7B8894" font-size="10" text-anchor="end">${Math.round(g*maxY/4)}</text>`;}
-  labels.forEach((l,i)=>s+=`<text x="${xs(i)}" y="${H-P+16}" fill="#7B8894" font-size="10" text-anchor="middle">S${l}</text>`);
+  labels.forEach((l,i)=>s+=`<text x="${xs(i)}" y="${H-P+16}" fill="#7B8894" font-size="9" text-anchor="middle">${l}</text>`);
   series.forEach(sr=>{let d='',st=false;sr.data.forEach((v,i)=>{if(v==null)return;d+=(st?' L':'M')+xs(i)+' '+ys(v);st=true;});
     s+=`<path d="${d}" fill="none" stroke="${sr.color}" stroke-width="2.5"/>`;
     sr.data.forEach((v,i)=>{if(v==null)return;s+=`<circle cx="${xs(i)}" cy="${ys(v)}" r="3.5" fill="${sr.color}"/><text x="${xs(i)}" y="${ys(v)-8}" fill="${sr.color}" font-size="10" font-weight="700" text-anchor="middle">${v}</text>`;});});
@@ -432,13 +441,17 @@ function pintarProgreso(){
   const SEM=HISTORIAL.semanas.slice();
   [nPush,nAbd,nPla,nHol,nWall].forEach(m=>Object.keys(m).forEach(w=>{w=+w;if(SEM.indexOf(w)<0)SEM.push(w);}));
   SEM.sort((a,b)=>a-b);
+  // Sin huecos: las semanas sin registro aparecen igual, vacías, para que no
+  // parezca que dos semanas separadas fueron consecutivas.
+  for(let w=SEM[0];w<SEM[SEM.length-1];w++)if(SEM.indexOf(w)<0)SEM.push(w);
+  SEM.sort((a,b)=>a-b);
   const serie=(hist,mapa)=>SEM.map(w=>{if(mapa&&mapa[w]!=null)return mapa[w];const i=HISTORIAL.semanas.indexOf(w);return i>=0?hist[i]:null;});
   const tope=(arrs,min)=>Math.max(min,...arrs.flat().filter(v=>v!=null));
   const sPush=serie(HISTORIAL.pushups_total,nPush),sCorr=serie(HISTORIAL.pushups_corridos,null);
   const sAbd=serie(HISTORIAL.abd_mil,nAbd),sPla=serie(HISTORIAL.plancha_seg,nPla),sHol=serie(HISTORIAL.hollow_seg,nHol);
-  renderChart('chart-pushups',[{name:'Total AMRAP',color:'#5F829B',data:sPush},{name:'Corridas',color:'#4E9A73',data:sCorr}],SEM,tope([sPush,sCorr],60));
-  renderChart('chart-core',[{name:'Abd. militares',color:'#4E9A73',data:sAbd},{name:'Plancha (s)',color:'#C48A2C',data:sPla},{name:'Hollow (s)',color:'#8DA9BD',data:sHol}],SEM,tope([sAbd,sPla,sHol],170));
-  document.getElementById('hitos').innerHTML=HISTORIAL.semanas.map((s,i)=>'<b>S'+s+':</b> '+HISTORIAL.carrera[i]).join('<br>');
+  renderChart('chart-pushups',[{name:'Total AMRAP',color:'#5F829B',data:sPush},{name:'Corridas',color:'#4E9A73',data:sCorr}],SEM.map(etiqSem),tope([sPush,sCorr],60));
+  renderChart('chart-core',[{name:'Abd. militares',color:'#4E9A73',data:sAbd},{name:'Plancha (s)',color:'#C48A2C',data:sPla},{name:'Hollow (s)',color:'#8DA9BD',data:sHol}],SEM.map(etiqSem),tope([sAbd,sPla,sHol],170));
+  document.getElementById('hitos').innerHTML=HISTORIAL.semanas.map((s,i)=>'<b>'+rangoDeSem(s)+':</b> '+HISTORIAL.carrera[i]).join('<br>');
   const rows=Object.keys(datos.dias||{}).filter(k=>{const m=datos.dias[k].m||{};return GF.some(([id])=>m[id]);}).sort().reverse().slice(0,12);
   document.getElementById('garmin-tbl').innerHTML=rows.length?'<table><tr><th>Día</th><th>Sesión</th><th>FC prom</th><th>FC máx</th><th>Cad.</th><th>Rod.</th></tr>'+rows.map(k=>{const m=datos.dias[k].m;return `<tr><td>${parseISO(k).getDate()}/${parseISO(k).getMonth()+1}</td><td>${PLAN[k]?PLAN[k].ic:''}</td><td>${m.fcp||'—'}</td><td>${m.fcm||'—'}</td><td>${m.cad||'—'}</td><td>${m.rod||'—'}</td></tr>`;}).join('')+'</table>':'<div class="muted">Aún no hay datos. Llénalos en cada sesión y aquí verás tu evolución.</div>';
 }
@@ -451,7 +464,7 @@ function render(fromSync){
   const act=document.activeElement;const editando=act&&(act.id==='nota'||String(act.id).startsWith('g-')||act.classList.contains('ci'));
   pintarCal();pintarNext();
   if(selDia&&!(fromSync&&editando))abrir(selDia,true);
-  document.getElementById('sub').textContent='Semana '+semDe(hoy())+' · '+fLarga(hoy());
+  document.getElementById('sub').textContent='Semana '+rangoSem(hoy())+' · '+fLarga(hoy());
 }
 // Plan externo: plan.json del repositorio (lo actualiza el coach cada domingo).
 // El plan embebido queda como respaldo; la última versión descargada se guarda para usarla sin señal.
