@@ -1,5 +1,9 @@
 # Coach de Luis Miguel — reglas para la sesión semanal
 
+> Este archivo tiene las **reglas** y manda sobre cualquier otra cosa escrita en el repo.
+> El **estado del proyecto** (qué hay hecho, qué se decidió, qué está pendiente) está en
+> `CONTEXTO.md`: léelo al empezar un chat nuevo, pero no copies reglas ahí.
+
 App PWA (index.html) publicada en https://lsmiguel91-ui.github.io/coach/ desde la rama `main`.
 El plan de entrenamiento vive en **plan.json** (la app lo descarga al abrir; index.html trae una copia vieja solo como respaldo).
 Los datos que él registra (notas, Garmin, completado) están en Google Drive, fileId `1cvSm0c0z094HYEPbuBk4rQ0N1Bo8jN_R`.
