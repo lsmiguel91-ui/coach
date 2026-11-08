@@ -907,7 +907,7 @@
   "ic": "🏃",
   "tit": "Trote moderado 25 min",
   "dur": "40 min",
-  "obj": "10.5 km/h · 1% · RPE 6 · debes poder hablar frases cortas",
+  "obj": "10 km/h · 1% · RPE 5-6 · FC promedio ≤150 · debes poder hablar frases cortas",
   "bloques": [
    {
     "f": "Antes",
@@ -940,8 +940,8 @@
     "items": [
      {
       "n": "Trote continuo",
-      "d": "25 min · 10.5 km/h · 1%",
-      "c": "Ritmo constante. Tronco erguido, brazos atrás a 90°, pasos cortos y rápidos. Si la rodilla pasa de 2/10, cortas ahí.",
+      "d": "25 min · 10 km/h · 1%",
+      "c": "Igual que el lunes pasado: salió con FC 157 y pasos de 159, así que no sube. Pasos cortos y rápidos (165-170). Si la FC pasa de 152 después del minuto 10, baja a 9.5 km/h. Si la rodilla pasa de 2/10, cortas ahí.",
       "yt": "tecnica de carrera trotadora postura",
       "k": 1
      }
@@ -953,19 +953,22 @@
      {
       "n": "Enfriamiento anti-mareo",
       "d": "5 min · 6 km/h · 0%",
-      "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."
+      "c": "Los 5 minutos completos, no 2. Obligatorio antes de bajarte de la trotadora: evita el mareo y cuida la rodilla."
      }
     ]
    }
   ],
-  "hora": "Madrugada · entras 08:00"
+  "hora": "Madrugada · entras 08:00",
+  "tips": [
+   "La alerta de cadencia baja (160) te va a sonar en el calentamiento: úsala para acortar el paso, no la apagues."
+  ]
  },
  "2026-11-10": {
   "t": "intervalos",
   "ic": "⚡",
-  "tit": "Intervalos 5×600 m @12.5",
+  "tit": "Intervalos 5×600 m @12.8",
   "dur": "50 min",
-  "obj": "5 series de 600 m a 12.5 km/h · descanso 2 min trotando a 6 km/h · 1.5%",
+  "obj": "5 series de 600 m a 12.8 km/h · 1.5% · descanso 2 min a 5-6 km/h · RPE esperado 7-8",
   "bloques": [
    {
     "f": "Antes",
@@ -1004,23 +1007,24 @@
     "items": [
      {
       "n": "Serie 1",
-      "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"
+      "d": "600 m @ 12.8 km/h · 1.5% → 2 min a 5-6 km/h",
+      "c": "Subes 0.3 km/h porque la semana pasada completaste las 5 series a 12.5 con RPE 7. Cada serie dura 2:49. En el descanso puedes caminar rápido (5-6 km/h); 4.5 es muy lento y te enfría."
      },
      {
       "n": "Serie 2",
-      "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"
+      "d": "600 m @ 12.8 km/h · 1.5% → 2 min a 5-6 km/h"
      },
      {
       "n": "Serie 3",
-      "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"
+      "d": "600 m @ 12.8 km/h · 1.5% → 2 min a 5-6 km/h"
      },
      {
       "n": "Serie 4",
-      "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h"
+      "d": "600 m @ 12.8 km/h · 1.5% → 2 min a 5-6 km/h"
      },
      {
       "n": "Serie 5",
-      "d": "600 m @ 12.5 km/h · 1.5% → 2 min a 6 km/h",
+      "d": "600 m @ 12.8 km/h · 1.5% → 2 min a 5-6 km/h",
       "k": 1
      }
     ]
@@ -1037,7 +1041,8 @@
    }
   ],
   "tips": [
-   "Si la serie 4 sale a RPE 9+, la última va a 12.0 km/h. Si todas salen a RPE ≤8, en dos semanas sube 0.5 km/h."
+   "Si la serie 4 sale a RPE 9 o más, la última va a 12.5 km/h y lo anotas.",
+   "Anota la potencia media de las series (Intervalos → Carrera → fila Total): la semana pasada no quedó registrada."
   ],
   "hora": "05:30 · entras 09:00"
  },
@@ -1135,8 +1140,8 @@
      },
      {
       "n": "Plancha isométrica",
-      "d": "1 intento · meta 2:20",
-      "c": "Codos bajo los hombros, glúteos apretados, abdomen activo. Respira.",
+      "d": "1 intento · meta 2:40",
+      "c": "La semana pasada hiciste 2:30 a RPE 7: la meta sube a 2:40. Codos bajo los hombros, glúteos apretados, abdomen activo. Respira.",
       "yt": "plancha abdominal tecnica correcta"
      }
     ]
@@ -1152,9 +1157,9 @@
  "2026-11-12": {
   "t": "ritmo",
   "ic": "⏱️",
-  "tit": "Ritmo sostenido 2×1.5 km @12",
+  "tit": "Ritmo sostenido 3×1 km @12.5",
   "dur": "50 min",
-  "obj": "2 bloques de 1.5 km a 12 km/h · descanso 3 min trotando a 6 · 1.5%",
+  "obj": "3 bloques de 1 km a 12.5 km/h · descanso 2:30 trotando a 6 · 1.5%",
   "bloques": [
    {
     "f": "Antes",
@@ -1193,13 +1198,19 @@
     "items": [
      {
       "n": "Bloque 1",
-      "d": "1.5 km @ 12 km/h · 1.5% → 3 min a 6 km/h",
+      "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h",
       "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.",
       "k": 1
      },
      {
       "n": "Bloque 2",
-      "d": "1.5 km @ 12 km/h · 1.5% → 3 min a 6 km/h",
+      "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h",
+      "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.",
+      "k": 1
+     },
+     {
+      "n": "Bloque 3",
+      "d": "1 km @ 12.5 km/h · 1.5% → 2:30 a 6 km/h",
       "c": "Ritmo parejo de principio a fin; el último tramo debe sentirse RPE 8, no 10.",
       "k": 1
      }
@@ -1217,7 +1228,9 @@
    }
   ],
   "tips": [
-   "Este es el trabajo que más se parece a la prueba: aprender a sostener un ritmo incómodo sin parar."
+   "Igual que el jueves pasado: el último bloque salió a RPE 8.5 y para subir tiene que salir a 8 o menos.",
+   "Este es el trabajo que más se parece a la prueba: aprender a sostener un ritmo incómodo sin parar.",
+   "Pasos cortos y rápidos en el último bloque, que es donde se cae la técnica."
   ],
   "hora": "05:30 · entras 09:00"
  },
@@ -1240,20 +1253,20 @@
      },
      {
       "n": "Puente de glúteo a una pierna",
-      "d": "3 × 12 por pierna",
+      "d": "3 × 15 por pierna",
       "c": "Boca arriba, una pierna estirada al aire, empuja con el talón de la otra y aprieta 2 s arriba.",
       "yt": "puente de gluteo a una pierna"
      },
      {
       "n": "Monster walk con banda",
-      "d": "3 × 12 pasos por lado",
+      "d": "3 × 12 pasos por lado (24 en total)",
       "c": "Banda sobre las rodillas, semi-sentadilla, pasos laterales sin juntar los pies. Fortalece el glúteo medio, que estabiliza la rodilla.",
       "yt": "monster walk banda gluteo medio"
      },
      {
       "n": "Peso muerto rumano",
-      "d": "3 × 10 · 14 kg por mano",
-      "c": "Rodillas apenas dobladas, cadera hacia atrás con espalda recta, mancuernas pegadas a las piernas. Sube despacio exhalando (evita el mareo).",
+      "d": "3 × 12 · 16 kg por mano",
+      "c": "Sube porque el viernes pasado hiciste 3 × 12 con 15 kg a RPE 3. Rodillas apenas dobladas, cadera hacia atrás con espalda recta, mancuernas pegadas a las piernas. Sube despacio exhalando (evita el mareo).",
       "yt": "peso muerto rumano mancuernas tecnica"
      },
      {
@@ -1269,8 +1282,8 @@
     "items": [
      {
       "n": "Abdominales militares en bloques de 30 s",
-      "d": "5 × 30 s · descanso 45 s · meta 18-20 parejos",
-      "c": "Técnica completa. Busca el mismo número en todos los bloques: ritmo parejo = 54+ en la prueba.",
+      "d": "5 × 30 s · descanso 45 s · meta 24-25 parejos",
+      "c": "La semana pasada hiciste 25-25-25-25-23: la meta sube. Técnica completa (escápula al piso). Busca el mismo número en los 5 bloques; si el último cae a 23 otra vez, la meta se mantiene.",
       "yt": "abdominales militares tecnica correcta",
       "k": 1
      },
@@ -1287,9 +1300,9 @@
  "2026-11-14": {
   "t": "fondo",
   "ic": "🏃",
-  "tit": "Fondo suave 35 min + pecho corto",
-  "dur": "65 min",
-  "obj": "10 km/h · 1.5% · RPE ≤6 · luego pecho corto",
+  "tit": "Fondo suave 30 min + pecho corto",
+  "dur": "60 min",
+  "obj": "9.5 km/h · 1.5% · RPE ≤6 · FC promedio ≤150 · luego pecho corto",
   "bloques": [
    {
     "f": "Antes",
@@ -1322,8 +1335,8 @@
     "items": [
      {
       "n": "Trote continuo",
-      "d": "35 min · 10 km/h · 1.5%",
-      "c": "Base aeróbica: suave de verdad. Debes poder hablar. Si en el min 20 la rodilla pasa de 2/10, cortas.",
+      "d": "30 min · 9.5 km/h · 1.5%",
+      "c": "Igual que la semana pasada: la FC salió 151, justo encima del tope, así que no sube. Pasos cortos y rápidos (165): el dolor al inicio vino con pasos lentos y largos. Si en el min 20 la rodilla pasa de 2/10, cortas.",
       "k": 1
      }
     ]
@@ -1361,7 +1374,11 @@
     ]
    }
   ],
-  "hora": "Sin horario"
+  "hora": "Sin horario",
+  "tips": [
+   "Hazlo el sábado: el domingo es descanso. Esta semana el fondo se corrió al domingo y te quedaste sin día libre.",
+   "Duerme 6.5 h o más: dos noches de la semana pasada quedaron en 5.8 h."
+  ]
  },
  "2026-11-15": {
   "t": "descanso",
