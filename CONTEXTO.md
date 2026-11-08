@@ -70,6 +70,12 @@ desde el 3-nov. Cardio no se usa.
 5. **Netlify ya no se usa.** GitHub es la copia viva.
 6. Alertas en Cinta: FC alta 150 solo en trote y fondo; cadencia baja 160 siempre activa;
    cadencia alta desactivada.
+7. **Los tests del miércoles van al inicio, en fresco** (aprobado el 8-nov, aplicado desde el
+   11-nov): activación corta, abdominales militares, 3 min de descanso, AMRAP de push-ups, y
+   después el pecho. Antes iban al final y el número salía castigado por el cansancio.
+   **Ojo con la comparación:** los tests desde el 11-nov no son comparables con los anteriores.
+   El salto de esa semana no es mejora real; la línea base limpia empieza ahí. Está escrito como
+   regla 6b y 6c en CLAUDE.md.
 
 ## 5. Problemas resueltos (no reinventar)
 
@@ -116,16 +122,15 @@ Semana completa, seis sesiones, todas marcadas. Lecturas que deben entrar en la 
 
 1. **Hoy domingo 8, 18:55:** primer reporte automático completo y carga de la semana siguiente.
    Verificar que llegue el aviso y que el PDF quede en Drive.
-2. **Decisión abierta sobre los tests.** El AMRAP de push-ups y los abdominales militares están
-   al final de la sesión del miércoles, después de todo el trabajo de pecho. Ese número no mide
-   su capacidad real ni es comparable con la prueba de la FAE, donde llegaría fresco. Está
-   propuesto moverlos al inicio del miércoles o a un día aparte; **falta que él lo apruebe**.
-3. **Calibración de la cinta:** ya calibra antes de guardar y el total es confiable, pero el
+2. **Calibración de la cinta:** ya calibra antes de guardar y el total es confiable, pero el
    ritmo por intervalo que muestra Garmin sigue subestimando. Las series se miden por tiempo ×
    velocidad de banda.
-4. **25 de noviembre:** decidir si se cancela Strava. Hay un recordatorio programado
+3. **25 de noviembre:** decidir si se cancela Strava. Hay un recordatorio programado
    (`trig_01WRJ1M2PyDcSAXN3QC6KzEm`). Strava no era elegible para su cuenta por despliegue
    gradual; revisar si ya lo es.
+4. **Miércoles 11-nov:** primera sesión con los tests al inicio. Revisar si el pecho posterior
+   aguantó el volumen o hubo que quitar una serie, y dejar los números de ese día como nueva
+   línea base de push-ups y abdominales.
 5. Recordatorios vivos para él: completar los 5 min de enfriamiento, dormir 6.5 h o más, y no
    agregar series extra a lo planificado.
 

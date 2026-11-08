@@ -1046,7 +1046,7 @@
   "ic": "💪",
   "tit": "Pecho + abdomen completo (con tests)",
   "dur": "45 min",
-  "obj": "Test abd. militares 1'30\" + pecho de mantenimiento + AMRAP push-ups",
+  "obj": "Tests en fresco (abd. militares + AMRAP push-ups) y después pecho de mantenimiento",
   "bloques": [
    {
     "f": "Activación",
@@ -1060,13 +1060,19 @@
     ]
    },
    {
-    "f": "Test abdominal",
+    "f": "Tests en fresco",
     "items": [
      {
       "n": "Abdominales militares 1'30\"",
       "d": "1 serie máxima SIN PAUSA · aprobar 52 · meta 58",
-      "c": "Pies fijos, rodillas a 90°, manos cruzadas al pecho. Los omóplatos despegan por completo y los codos tocan los muslos. Ritmo constante ≈ 18 cada 30 s; si arde, baja el ritmo pero no te detengas. Anota reps a los 30, 60 y 90 s.",
+      "c": "Pies fijos, rodillas a 90°, manos cruzadas al pecho. Los omóplatos despegan por completo y los codos tocan los muslos. Ritmo constante ≈ 18 cada 30 s; si arde, baja el ritmo pero no te detengas. SIN PAUSA: si te detienes, el número ya no sirve para comparar. Anota reps a los 30, 60 y 90 s.",
       "yt": "abdominales militares tecnica correcta",
+      "k": 1
+     },
+     {
+      "n": "AMRAP push-ups 1'30\"",
+      "d": "Aprobar 43 · meta 48 · descanso 3 min antes",
+      "c": "Descansa 3 min completos después del test de abdominales antes de empezar. Corridas todas las que puedas; cuando falles, pausa arriba 3 s con brazos estirados y sigue en bloques de 5. Nunca rodillas al piso. Anota total y corridas.",
       "k": 1
      }
     ]
@@ -1113,17 +1119,6 @@
     ]
    },
    {
-    "f": "Test pecho",
-    "items": [
-     {
-      "n": "AMRAP push-ups 1'30\"",
-      "d": "Aprobar 43 · meta 48",
-      "c": "25 corridas, pausa arriba 3 s con brazos estirados, luego bloques de 5. Nunca rodillas al piso. Anota total y corridas.",
-      "k": 1
-     }
-    ]
-   },
-   {
     "f": "Abdomen complementario",
     "items": [
      {
@@ -1147,7 +1142,12 @@
     ]
    }
   ],
-  "hora": "05:30 · entras 09:00"
+  "hora": "05:30 · entras 09:00",
+  "tips": [
+   "Desde hoy los dos tests van al inicio, antes de todo el trabajo de pecho: así el número mide lo que puedes de verdad y se parece a la prueba real.",
+   "El pecho de después se va a sentir más duro de lo normal. Si la última serie de press o de fondos se te cae, quita esa serie y anótalo; no es retroceso.",
+   "Tus números anteriores se tomaron al final de la sesión, cansado. El salto de esta semana no es mejora real: la comparación limpia empieza desde hoy."
+  ]
  },
  "2026-11-12": {
   "t": "ritmo",
