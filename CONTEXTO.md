@@ -30,10 +30,14 @@ dentro de la app y queda en `localStorage`.
 
 ## 2. Tarea programada
 
-**Al 15-nov ya no existe.** "Coach semanal: reporte + plan" ((id en el archivo privado),
-domingos 18:55) no aparece ni en las rutinas en la nube ni en las tareas programadas. Hasta que
-se decida si se recrea, la semana se arma a mano en esta sesión y no hay PDF automático.
-Antes: leía Drive, generaba el PDF, lo subía y cargaba la semana siguiente en `plan.json`.
+"Coach semanal: reporte + propuesta" ((id en el archivo privado), creada el 15-nov),
+**domingos 18:55 hora local** (`55 23 * * 0` UTC), en la nube, modelo Opus 5.5, conectores Drive y
+Gmail. Lee Drive, evalúa la semana, genera el PDF y lo sube a "Reportes coach semanales", y deja
+la semana siguiente **como propuesta en la rama `propuesta/AAAA-MM-DD`**, nunca en main. Si la
+semana siguiente ya está en `plan.json` de main, no propone nada y solo hace el reporte.
+**Cuando él responde "aprobado"**: traer `plan.json` de esa rama a main (solo las fechas de la
+semana propuesta), validar, commit y push. Gestión: claude.ai/code → Rutinas
+La rutina anterior ((id en el archivo privado), que cargaba sin confirmar) ya no existe.
 
 ## 3. Estado actual
 
@@ -139,7 +143,8 @@ Drive. Aquí solo lo que entra en la progresión:
    pecho sin tests, ritmo 2×1 km a 12.0, piernas con 14 kg, fondo 25 min. Si sale a RPE ≤7,
    la semana 23–29 vuelve al plan normal (5×600 a 12.8, 3×1 km a 12.5, 16 kg) con **tests el
    miércoles 25**. La semana 9–15 no cuenta para la regla 1 ni para la progresión.
-1b. Decidir si se recrea la tarea automática de los domingos (reporte PDF + plan).
+1b. **Hoy 15-nov, 18:55:** primera corrida de la rutina nueva. Como la semana 16–22 ya está
+   cargada, solo debe generar el PDF de la semana de gripe. Revisar que el PDF quede en Drive.
 2. **Calibración de la cinta:** ya calibra antes de guardar y el total es confiable, pero el
    ritmo por intervalo que muestra Garmin sigue subestimando. Las series se miden por tiempo ×
    velocidad de banda.
