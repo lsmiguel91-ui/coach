@@ -30,10 +30,10 @@ dentro de la app y queda en `localStorage`.
 
 ## 2. Tarea programada
 
-"Coach semanal: reporte + plan" ((id en el archivo privado)), **domingos 18:55**, corre
-solo en la nube, sin carpeta local asociada. Lee los datos de Drive, genera el PDF con la
-página del plan de la próxima semana, se lo envía y lo sube a Drive, y carga la semana
-siguiente en `plan.json` sin esperar confirmación. Él ajusta después si quiere.
+**Al 15-nov ya no existe.** "Coach semanal: reporte + plan" ((id en el archivo privado),
+domingos 18:55) no aparece ni en las rutinas en la nube ni en las tareas programadas. Hasta que
+se decida si se recrea, la semana se arma a mano en esta sesión y no hay PDF automático.
+Antes: leía Drive, generaba el PDF, lo subía y cargaba la semana siguiente en `plan.json`.
 
 ## 3. Estado actual
 
@@ -134,8 +134,12 @@ Drive. Aquí solo lo que entra en la progresión:
 
 ## 7. Pendientes
 
-1. **Hoy domingo 8, 18:55:** primer reporte automático completo y carga de la semana siguiente.
-   Verificar que llegue el aviso y que el PDF quede en Drive.
+1. **Gripe del 10 al 15-nov:** no entrenó; solo quedó el lunes 9. Semana 16–22 nov cargada como
+   **retorno** (~80 %): trote 20 min a 9.5, intervalos 4×400 a 12.5 (solo si el lunes FC ≤150),
+   pecho sin tests, ritmo 2×1 km a 12.0, piernas con 14 kg, fondo 25 min. Si sale a RPE ≤7,
+   la semana 23–29 vuelve al plan normal (5×600 a 12.8, 3×1 km a 12.5, 16 kg) con **tests el
+   miércoles 25**. La semana 9–15 no cuenta para la regla 1 ni para la progresión.
+1b. Decidir si se recrea la tarea automática de los domingos (reporte PDF + plan).
 2. **Calibración de la cinta:** ya calibra antes de guardar y el total es confiable, pero el
    ritmo por intervalo que muestra Garmin sigue subestimando. Las series se miden por tiempo ×
    velocidad de banda.
