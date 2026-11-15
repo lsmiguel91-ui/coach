@@ -40,7 +40,11 @@ siguiente en `plan.json` sin esperar confirmación. Él ajusta después si quier
 **Funcionando al 100%:**
 
 - App publicada y sincronizando con Drive.
-- Plan separado en `plan.json`; el service worker no lo cachea. Versión del SW: **v6**.
+- Plan separado en `plan.json`; el service worker no lo cachea. Versión del SW: **v7**.
+- **Sincronización segura entre dispositivos** (desde 15-nov, v7): antes de subir, la app lee
+  Drive y combina día por día (gana el `f` más reciente); lo que no sube queda pendiente
+  (`coach_pend`) y se reintenta solo; aviso rojo si el equipo no está conectado o tiene cambios
+  sin subir.
 - Recuadro "⌚ Reloj" en cada sesión, con la actividad del reloj y qué alertas usar.
 - **Campos de métricas por tipo de día** (desde 4-nov): en pecho y abdomen no aparecen
   cadencia, distancia ni rodilla; en piernas vuelve rodilla; en intervalos y ritmo se agregó
@@ -95,6 +99,11 @@ desde el 3-nov. Cardio no se usa.
 - Garmin no tiene "hollow body hold" en su catálogo y no permite crear nombres propios. Lo
   más cercano es "Hollow rock", en la categoría Abdominales. Da igual: el dato que cuenta ya
   queda en la app.
+
+- **Datos del celular que no llegaban a Drive (15-nov):** el lunes 9-nov quedó en Drive sin
+  nota, cadencia ni "completada", y la PC (Edge) no tenía configurada la URL del Apps Script.
+  Causas: cada guardado reemplazaba el archivo completo, los fallos de subida eran silenciosos
+  y lo local más nuevo no se volvía a subir. Corregido en v7.
 
 ## 6. Semana 2–8 nov — conclusiones
 
