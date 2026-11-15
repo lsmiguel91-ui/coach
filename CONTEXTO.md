@@ -40,11 +40,20 @@ siguiente en `plan.json` sin esperar confirmación. Él ajusta después si quier
 **Funcionando al 100%:**
 
 - App publicada y sincronizando con Drive.
-- Plan separado en `plan.json`; el service worker no lo cachea. Versión del SW: **v7**.
-- **Sincronización segura entre dispositivos** (desde 15-nov, v7): antes de subir, la app lee
-  Drive y combina día por día (gana el `f` más reciente); lo que no sube queda pendiente
+- Plan separado en `plan.json`; el service worker no lo cachea. Versión: **v8** (se ve junto al
+  estado de sincronización; `APP_VERSION` en index.html y `VERSION` en sw.js van siempre iguales).
+- **Sincronización segura entre dispositivos** (v7 y v8, 15-nov): antes de subir, la app lee
+  Drive y combina **campo por campo** con la hora de edición de cada uno (`t`); en datos viejos
+  sin `t`, un vacío nunca pisa un valor lleno. Al escribir se guarda solo el campo tocado. No se
+  puede editar hasta la primera lectura de Drive (máx. 20 s). Lo que no sube queda pendiente
   (`coach_pend`) y se reintenta solo; aviso rojo si el equipo no está conectado o tiene cambios
-  sin subir.
+  sin subir; el estado distingue "sin conexión" de "Drive respondió error" y muestra la última
+  sincronización buena.
+- **Auditoría del 15-nov (C1–C8, v8):** además de lo anterior, Progreso grafica solo los tests
+  (y el intento único de plancha), sin huecos de semanas; el PDF muestra rodilla con decimal, no
+  dibuja carreras sin pulso como 0, ajusta el eje de sueño y acepta semanas incompletas; la app
+  vuelve sola al día de hoy, se recarga sola con una versión nueva si no estás escribiendo y
+  un plan.json con errores ya no la tumba.
 - Recuadro "⌚ Reloj" en cada sesión, con la actividad del reloj y qué alertas usar.
 - **Campos de métricas por tipo de día** (desde 4-nov): en pecho y abdomen no aparecen
   cadencia, distancia ni rodilla; en piernas vuelve rodilla; en intervalos y ritmo se agregó

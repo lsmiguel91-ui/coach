@@ -4,7 +4,7 @@ Uso: python3 reporte_coach.py analisis.json salida.pdf
 El JSON de análisis lo escribe Claude cada domingo (datos + textos).
 PDF liviano: fuentes estándar (Helvetica) y gráficos vectoriales; si hay qpdf, se recomprime al final.
 """
-import json, sys, io, os, glob, subprocess
+import json, sys, io, os, glob, subprocess, shutil, datetime
 try:
     import svglib  # gráficos vectoriales: PDF liviano (~15 KB) que se puede subir a Drive automáticamente
 except ImportError:
@@ -43,6 +43,24 @@ def num(x):
     try: return float(str(x).replace(',','.'))
     except: return None
 
+def f1(v):
+    """Un decimal solo si hace falta: 0.5 -> '0.5', 2.0 -> '2'."""
+    return ('%.1f' % v).rstrip('0').rstrip('.')
+
+def semana7(dias):
+    """La semana debe traer 7 días (lunes a domingo). Si un día trae 'fecha' (AAAA-MM-DD) se
+    ubica por su fecha; si no, por su posición. Los que faltan quedan vacíos."""
+    if len(dias) > 7:
+        sys.exit(f'ERROR: "dias" trae {len(dias)} elementos; deben ser 7 (lunes a domingo).')
+    if all(d.get('fecha') for d in dias) and dias:
+        out = [{} for _ in range(7)]
+        for d in dias:
+            out[datetime.date.fromisoformat(d['fecha'][:10]).weekday()] = d
+        return out
+    if len(dias) < 7:
+        print(f'AVISO: "dias" trae {len(dias)} elementos; se completan vacíos hasta 7.', file=sys.stderr)
+    return list(dias) + [{} for _ in range(7 - len(dias))]
+
 def box(content,bg=HL,border=BORDER,pad=8):
     t=Table([[content]],colWidths=[170*mm]); t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,-1),colors.HexColor(bg)),
       ('BOX',(0,0),(-1,-1),0.6,colors.HexColor(border)),('LEFTPADDING',(0,0),(-1,-1),pad),('RIGHTPADDING',(0,0),(-1,-1),pad),
@@ -66,7 +84,7 @@ DIAS=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom']
 RUN={'trote','intervalos','ritmo','fondo'}
 
 def build(A,out):
-    dias=A['dias']; sem=SEM.get(A.get('semaforo','amarillo'),SEM['amarillo'])
+    dias=semana7(A['dias']); sem=SEM.get(A.get('semaforo','amarillo'),SEM['amarillo'])
     doc=BaseDocTemplate(out,pagesize=A4,leftMargin=20*mm,rightMargin=20*mm,topMargin=22*mm,bottomMargin=16*mm,
                         title=f"Reporte semanal {A.get('rango','')}".strip(),author='Coach de Luis Miguel')
     doc._sub=A.get('rango','')
@@ -79,6 +97,7 @@ def build(A,out):
     E+= [sem_t,Spacer(1,10)]
     plan=[d for d in dias if d.get('tipo')!='descanso']; hechos=[d for d in plan if d.get('hecho')]
     runs=[d for d in dias if d.get('tipo') in RUN and d.get('hecho')]
+    dia_de={id(d):DIAS[i] for i,d in enumerate(dias)}
     km=sum(num(d.get('dist')) or 0 for d in runs)
     suaves=[num(d.get('fcp')) for d in runs if d.get('tipo') in ('trote','fondo') and num(d.get('fcp'))]
     sue=[num(d.get('sue')) for d in dias if num(d.get('sue'))]
@@ -100,16 +119,24 @@ def build(A,out):
     # ---- carrera ----
     E.append(Spacer(1,6)); E.append(Paragraph('Carrera',H2))
     if runs:
-        lab=[f"{DIAS[dias.index(d)]}\n{d.get('plan','')[:14]}" for d in runs]
-        fcp=[num(d.get('fcp')) or 0 for d in runs]; fcm=[num(d.get('fcm')) for d in runs]
-        fig,ax=plt.subplots(figsize=(7.2,2.7))
-        bars=ax.bar(lab,fcp,color=[OK if (v<=150 or r.get('tipo') in ('intervalos','ritmo')) else WARN for v,r in zip(fcp,runs)],width=0.35,label='Pulso promedio')
-        if len(runs)<4: ax.set_xlim(-1.2,len(runs)+0.2)
-        for b,v in zip(bars,fcp): ax.text(b.get_x()+b.get_width()/2,v+1,f'{v:.0f}',ha='center',fontsize=8,color=TXT)
-        if any(fcm): ax.scatter(lab,[v or 0 for v in fcm],color=BAD,zorder=3,label='Pulso máximo',s=22)
-        ax.axhline(150,ls='--',color=PRI,lw=1); ax.text(ax.get_xlim()[0]+0.05,151.5,'tope días suaves: 150',fontsize=7,color=PRI)
-        ax.set_ylim(100,max([v or 0 for v in fcm]+fcp+[160])+12); ax.set_ylabel('ppm'); ax.legend(fontsize=7,frameon=False,loc='lower left')
-        E.append(fig_img(fig)); E.append(Paragraph(A.get('txt_pulso',''),P)); E.append(Spacer(1,8))
+        lab=[f"{dia_de[id(d)]}\n{d.get('plan','')[:14]}" for d in runs]
+        con_fc=[(l,d) for l,d in zip(lab,runs) if num(d.get('fcp')) is not None]
+        if con_fc:
+            # Solo las carreras con pulso anotado: una carrera sin dato no se dibuja como 0.
+            lf=[l for l,_ in con_fc]; rf=[d for _,d in con_fc]
+            fcp=[num(d.get('fcp')) for d in rf]; fcm=[num(d.get('fcm')) for d in rf]
+            fig,ax=plt.subplots(figsize=(7.2,2.7))
+            bars=ax.bar(lf,fcp,color=[OK if (v<=150 or r.get('tipo') in ('intervalos','ritmo')) else WARN for v,r in zip(fcp,rf)],width=0.35,label='Pulso promedio')
+            if len(rf)<4: ax.set_xlim(-1.2,len(rf)+0.2)
+            for b,v in zip(bars,fcp): ax.text(b.get_x()+b.get_width()/2,v+1,f'{v:.0f}',ha='center',fontsize=8,color=TXT)
+            pm=[(l,v) for l,v in zip(lf,fcm) if v is not None]
+            if pm: ax.scatter([l for l,_ in pm],[v for _,v in pm],color=BAD,zorder=3,label='Pulso máximo',s=22)
+            ax.axhline(150,ls='--',color=PRI,lw=1); ax.text(ax.get_xlim()[0]+0.05,151.5,'tope días suaves: 150',fontsize=7,color=PRI)
+            ax.set_ylim(min(fcp+[110])-10,max([v for _,v in pm]+fcp+[160])+12); ax.set_ylabel('ppm'); ax.legend(fontsize=7,frameon=False,loc='lower left')
+            E.append(fig_img(fig))
+        sin_fc=[l.split('\n')[0] for l,d in zip(lab,runs) if num(d.get('fcp')) is None]
+        if sin_fc: E.append(Paragraph('Sin pulso anotado: '+', '.join(sin_fc)+'.',SMALL))
+        E.append(Paragraph(A.get('txt_pulso',''),P)); E.append(Spacer(1,8))
         cad=[num(d.get('cad')) for d in runs]
         if any(cad):
             fig,ax=plt.subplots(figsize=(7.2,2.2)); ax.axhspan(165,170,color=SOFT,label='zona ideal 165-170')
@@ -160,11 +187,11 @@ def build(A,out):
         fig,ax=plt.subplots(figsize=(7.2,2.1))
         vals=[num(d.get('sue')) or 0 for d in dias]
         ax.bar(DIAS,vals,color=[OK if v>=6.5 else (WARN if v>0 else HL) for v in vals],width=0.5)
-        ax.axhline(6.5,ls='--',color=PRI,lw=1); ax.text(6.4,6.6,'mínimo 6.5 h',fontsize=7,color=PRI,ha='right'); ax.set_ylim(0,9); ax.set_ylabel('horas')
+        ax.axhline(6.5,ls='--',color=PRI,lw=1); ax.text(6.4,6.6,'mínimo 6.5 h',fontsize=7,color=PRI,ha='right'); ax.set_ylim(0,max(vals+[8.5])+0.8); ax.set_ylabel('horas')
         E.append(fig_img(fig))
     rod=[(DIAS[i],num(d.get('rod'))) for i,d in enumerate(dias) if num(d.get('rod')) is not None]
     if rod:
-        E.append(Paragraph('Rodilla: '+' · '.join(f'{a} <font name="Helvetica-Bold" color="{OK if v<3 else BAD}">{v:.0f}/10</font>' for a,v in rod),P))
+        E.append(Paragraph('Rodilla: '+' · '.join(f'{a} <font name="Helvetica-Bold" color="{OK if v<3 else BAD}">{f1(v)}/10</font>' for a,v in rod),P))
     E.append(Paragraph(A.get('txt_recuperacion',''),P))
     # ---- ajustes ----
     aj=''.join(f'<font name="Helvetica-Bold" color="{PRI}">{i+1}.</font> {a}<br/><br/>' for i,a in enumerate(A.get('ajustes',[])))
@@ -190,7 +217,7 @@ def build(A,out):
 
 if __name__=='__main__':
     A=json.load(open(sys.argv[1],encoding='utf-8')); out=sys.argv[2]; build(A,out)
-    if subprocess.run(['which','qpdf'],capture_output=True).returncode==0:
+    if shutil.which('qpdf'):
         tmp=out+'.tmp'
         if subprocess.run(['qpdf','--recompress-flate','--compression-level=9','--object-streams=generate',out,tmp]).returncode==0: os.replace(tmp,out)
     print('PDF:',out,f'({os.path.getsize(out)//1024} KB)')

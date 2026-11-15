@@ -2,7 +2,7 @@
 // El nombre del caché lleva la versión de la app: al publicar una versión nueva
 // cambia el nombre, se descarta el caché viejo y el teléfono deja de quedarse
 // pegado en una versión anterior.
-const VERSION = 'v7';
+const VERSION = 'v8';
 const CACHE = 'coach-' + VERSION;
 
 // Lo mínimo para que la app abra sin señal.
@@ -57,6 +57,9 @@ self.addEventListener('fetch', e => {
     e.respondWith(
       fetch(req.url, { cache: 'no-store' })
         .then(r => {
+          // Solo se guarda como copia sin conexión una respuesta buena (no un 404 ni un 5xx).
+          // Si el servidor falla, se muestra la última copia buena en vez de la página de error.
+          if (!r.ok) return caches.match('./index.html').then(h => h || r);
           const copia = r.clone();
           caches.open(CACHE).then(c => c.put('./index.html', copia)).catch(() => {});
           return r;

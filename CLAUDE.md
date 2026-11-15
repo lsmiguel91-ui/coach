@@ -54,7 +54,8 @@ Reglas fijas desde el 3-nov-2026. En cinta el reloj estima la distancia con el a
 9. **Alerta de cadencia en el calentamiento**: a 8 km/h la alerta de cadencia baja (160) suena seguido. Es esperado y es útil: a esa velocidad 160 ppm equivale a una zancada de 0.83 m, perfectamente alcanzable. No desactivarla; usarla para entrar al trabajo con pasos cortos y rápidos.
 
 ## Qué registra la app en cada día (estructura de datos)
-`datos.dias["YYYY-MM-DD"] = {nota, m:{}, e:{}, ok, f}` y eso es lo que llega a Drive.
+`datos.dias["YYYY-MM-DD"] = {nota, m:{}, e:{}, ok, f, t:{}}` y eso es lo que llega a Drive.
+`t` (desde v8) guarda la hora de edición de cada campo (`nota`, `ok`, `m:fcp`, `e:<id>`…): la app combina el celular y la PC campo por campo con eso. No hay que leerlo para evaluar la semana.
 
 - **`m`** = métricas del día. Los campos que se muestran dependen del tipo de sesión, no son los mismos todos los días:
   `trote`/`fondo` → fcp, fcm, cad, dist, rdy, sue, rod, rpe · `intervalos`/`ritmo` → los mismos **+ pot** (potencia media de las series) · `pecho`/`abd` → fcp, fcm, rdy, sue, rpe · `piernas` → esos + rod · `descanso` → rdy, sue, rod.
