@@ -83,3 +83,13 @@ Herramienta: `python3 tools/semana.py ver|copiar|validar plan.json ...`. Siempre
 git add plan.json && git commit && git push origin main. No toques index.html ni sw.js en la sesión semanal.
 Si alguna vez sí se cambia index.html, hay que subir `VERSION` en sw.js (v5, v6…) o el teléfono se queda con la versión vieja en caché.
 Commits con la línea: Co-Authored-By: Claude <noreply@anthropic.com>
+
+## Dónde se trabaja (desde 17-nov-2026: en la nube)
+Esta app se maneja desde una sesión de Claude Code en la nube (claude.ai/code o la app Claude del celular), para poder trabajar con la PC apagada.
+- **Una sola sesión a la vez.** No trabajar Coach en la PC y en la nube al mismo tiempo.
+- **Al empezar:** `git pull` de `main`. **Al terminar:** todo cambio verificado queda subido a `main`; nunca dejar trabajo solo en la VM, porque se borra.
+- **Respaldo de cada versión de la app:** en vez de OneDrive (la nube no lo ve), crear el tag `vN` en el commit publicado y subirlo (`git push origin vN`). Los respaldos viejos de OneDrive `_versiones/COACH/` quedan como archivo histórico.
+- **Prueba antes de publicar un cambio de index.html:** servir el repo en local (`python3 -m http.server`) y abrirlo con Playwright/Chromium (instalar con pip o npm si falta), a 1280 px y 375 px.
+- **Datos de Drive:** se leen con el conector de Google Drive. Si el conector no está disponible en la sesión, decirlo al inicio en vez de suponer datos.
+- **Forma de responder al usuario:** español, corto y directo; en lo técnico, qué cambió y por qué, sin mostrar código; hallazgos y propuestas en tabla (problema, causa, solución, ¿aprueba?). Preguntar antes de cambios grandes; publicar solo con su aprobación.
+- **Repo público:** no escribir aquí datos personales nuevos (correo, ids de cuentas, cifras privadas).

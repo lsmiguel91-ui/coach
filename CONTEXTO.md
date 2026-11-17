@@ -18,7 +18,8 @@ este repositorio; no hay ninguna otra.
 | App publicada | https://lsmiguel91-ui.github.io/coach/ (GitHub Pages, main /root) |
 | Datos del atleta | Google Drive, `plan_entrenamiento_notas.json`, (id en el archivo privado) |
 | Reportes PDF | Google Drive, carpeta "Reportes coach semanales", (id en el archivo privado) |
-| Respaldos | OneDrive `_versiones/COACH/` — **solo respaldos fechados, no se edita nada ahí** |
+| Respaldos | Desde 17-nov-2026: un tag `vN` por versión en este repo. Antes: OneDrive `_versiones/COACH/` (archivo histórico, no se edita) |
+| Dónde se trabaja | Sesión de Claude Code en la nube (ver `CLAUDE.md`, "Dónde se trabaja") |
 
 Archivos del repo: `index.html` (la app completa), `plan.json` (el plan, se descarga al abrir),
 `sw.js` (service worker), `CLAUDE.md` (reglas), `CONTEXTO.md` (este archivo),
