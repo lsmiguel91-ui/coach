@@ -1,9 +1,11 @@
 # Contexto del proyecto — Coach de Luis Miguel
 
-Estado al **8 de noviembre de 2026**. Este archivo cuenta **qué hay y cómo se llegó aquí**.
+Estado al **18 de noviembre de 2026**. Este archivo cuenta **qué hay y cómo se llegó aquí**.
 Las reglas de trabajo (progresión semanal, lectura de métricas, estructura de datos, formato
 de `plan.json`) viven en **CLAUDE.md** y mandan sobre cualquier cosa escrita aquí.
 Si cambia una regla, se cambia en CLAUDE.md, no en este archivo.
+
+**Privado:** datos personales e ids en el archivo privado de Drive coach_privado_AAAA-MM-DD.md (carpeta Entrenamiento, el más reciente); leerlo al empezar.
 
 ---
 
@@ -16,8 +18,9 @@ este repositorio; no hay ninguna otra.
 |---|---|
 | Repositorio | `lsmiguel91-ui/coach`, rama `main` |
 | App publicada | https://lsmiguel91-ui.github.io/coach/ (GitHub Pages, main /root) |
-| Datos del atleta | Google Drive, `plan_entrenamiento_notas.json`, (id en el archivo privado) |
-| Reportes PDF | Google Drive, carpeta "Reportes coach semanales", (id en el archivo privado) |
+| Datos del atleta | Google Drive, `plan_entrenamiento_notas.json` (id en el archivo privado) |
+| Datos privados | Google Drive, carpeta «Entrenamiento», `coach_privado_AAAA-MM-DD.md` (el más reciente) |
+| Reportes PDF | Google Drive, carpeta «Entrenamiento» → "Reportes coach semanales" (id en el archivo privado) |
 | Respaldos | Desde 17-nov-2026: un tag `vN` por versión en este repo. Antes: OneDrive `_versiones/COACH/` (archivo histórico, no se edita) |
 | Dónde se trabaja | Sesión de Claude Code en la nube (ver `CLAUDE.md`, "Dónde se trabaja") |
 
@@ -31,14 +34,14 @@ dentro de la app y queda en `localStorage`.
 
 ## 2. Tarea programada
 
-"Coach semanal: reporte + propuesta" ((id en el archivo privado), creada el 15-nov),
+"Coach semanal: reporte + propuesta" (creada el 15-nov; id en el archivo privado),
 **domingos 18:55 hora local** (`55 23 * * 0` UTC), en la nube, modelo Opus 5.5, conectores Drive y
 Gmail. Lee Drive, evalúa la semana, genera el PDF y lo sube a "Reportes coach semanales", y deja
 la semana siguiente **como propuesta en la rama `propuesta/AAAA-MM-DD`**, nunca en main. Si la
 semana siguiente ya está en `plan.json` de main, no propone nada y solo hace el reporte.
 **Cuando él responde "aprobado"**: traer `plan.json` de esa rama a main (solo las fechas de la
-semana propuesta), validar, commit y push. Gestión: claude.ai/code → Rutinas
-La rutina anterior ((id en el archivo privado), que cargaba sin confirmar) ya no existe.
+semana propuesta), validar, commit y push. Gestión: claude.ai/code → Rutinas.
+La rutina anterior, que cargaba sin confirmar, ya no existe.
 
 ## 3. Estado actual
 
@@ -98,7 +101,7 @@ desde el 3-nov. Cardio no se usa.
 ## 5. Problemas resueltos (no reinventar)
 
 - La tarea programada vieja terminaba en 5 s porque seguía atada a una carpeta de OneDrive.
-  Se creó una nueva sin carpeta; la vieja ((id en el archivo privado)) quedó desactivada.
+  Se creó una nueva sin carpeta; la vieja quedó desactivada.
 - Push a GitHub rechazado → él agregó el repo `coach` a la app de Claude en GitHub
   (Settings → Installations).
 - GitHub Pages se activa a mano en Settings → Pages (main, /root); el proxy no lo permite por API.
@@ -150,13 +153,20 @@ Drive. Aquí solo lo que entra en la progresión:
    ritmo por intervalo que muestra Garmin sigue subestimando. Las series se miden por tiempo ×
    velocidad de banda.
 3. **25 de noviembre:** decidir si se cancela Strava. Hay un recordatorio programado
-   ((id en el archivo privado)). Strava no era elegible para su cuenta por despliegue
+   (id en el archivo privado). Strava no era elegible para su cuenta por despliegue
    gradual; revisar si ya lo es.
 4. **Miércoles 11-nov:** primera sesión con los tests al inicio. Revisar si el pecho posterior
    aguantó el volumen o hubo que quitar una serie, y dejar los números de ese día como nueva
    línea base de push-ups y abdominales.
 5. Recordatorios vivos para él: completar los 5 min de enfriamiento, dormir 6.5 h o más, y no
    agregar series extra a lo planificado.
+
+## 7b. Apps Script de Drive (18-nov-2026, solo contexto)
+
+El Apps Script «Ejercicio fisico Script» tenía un reporte que llamaba a la API de Anthropic; esa
+clave ya fue eliminada. Él lo reemplaza a mano con `Coach_GAS_limpio.txt` (carpeta
+«Entrenamiento» en Drive), que solo lee y guarda los datos. La app (`index.html`) no usa la API
+de Anthropic: no hay nada que tocar en ella por esto.
 
 ## 8. Cómo trabajar con él
 

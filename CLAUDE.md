@@ -3,10 +3,11 @@
 > Este archivo tiene las **reglas** y manda sobre cualquier otra cosa escrita en el repo.
 > El **estado del proyecto** (qué hay hecho, qué se decidió, qué está pendiente) está en
 > `CONTEXTO.md`: léelo al empezar un chat nuevo, pero no copies reglas ahí.
+> **Privado:** datos personales e ids en el archivo privado de Drive coach_privado_AAAA-MM-DD.md (carpeta Entrenamiento, el más reciente); leerlo al empezar.
 
 App PWA (index.html) publicada en https://lsmiguel91-ui.github.io/coach/ desde la rama `main`.
 El plan de entrenamiento vive en **plan.json** (la app lo descarga al abrir; index.html trae una copia vieja solo como respaldo).
-Los datos que él registra (notas, Garmin, completado) están en Google Drive, (id en el archivo privado).
+Los datos que él registra (notas, Garmin, completado) están en Google Drive, `plan_entrenamiento_notas.json` (id en el archivo privado de Drive).
 
 ## Quién es
 Luis Miguel. Edad, peso, talla, ciudad y altitud, institución y horario exacto: en el archivo privado de Drive. Entrena solo de madrugada, en altura, en trotadora NordicTrack (km/h, hasta 10% inclinación), con mancuernas hasta 16 kg, banda, foam roller, ABCoaster. Reloj Garmin Forerunner 265. No es experto en métricas: explicar simple.
@@ -92,4 +93,5 @@ Esta app se maneja desde una sesión de Claude Code en la nube (claude.ai/code o
 - **Prueba antes de publicar un cambio de index.html:** servir el repo en local (`python3 -m http.server`) y abrirlo con Playwright/Chromium (instalar con pip o npm si falta), a 1280 px y 375 px.
 - **Datos de Drive:** se leen con el conector de Google Drive. Si el conector no está disponible en la sesión, decirlo al inicio en vez de suponer datos.
 - **Forma de responder al usuario:** español, corto y directo; en lo técnico, qué cambió y por qué, sin mostrar código; hallazgos y propuestas en tabla (problema, causa, solución, ¿aprueba?). Preguntar antes de cambios grandes; publicar solo con su aprobación.
-- **Repo público:** no escribir aquí datos personales nuevos (correo, ids de cuentas, cifras privadas).
+- **Repo público:** no escribir aquí datos personales nuevos (correo, ids de cuentas o de Drive, cifras privadas, institución, horarios); van al archivo privado de Drive y aquí solo la referencia: datos personales e ids en el archivo privado de Drive coach_privado_AAAA-MM-DD.md (carpeta Entrenamiento, el más reciente); leerlo al empezar.
+- **Archivos nuevos en Drive** (reportes, respaldos, privados): siempre dentro de la carpeta «Entrenamiento» o de su subcarpeta «Reportes coach semanales» (crear con `parentId`), nunca en la raíz de Mi unidad.
