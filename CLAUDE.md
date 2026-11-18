@@ -83,14 +83,15 @@ Herramienta: `python3 tools/semana.py ver|copiar|validar plan.json ...`. Siempre
 
 ## Publicar
 git add plan.json && git commit && git push origin main. No toques index.html ni sw.js en la sesión semanal.
-Si alguna vez sí se cambia index.html, hay que subir `VERSION` en sw.js (v5, v6…) o el teléfono se queda con la versión vieja en caché.
+Si alguna vez sí se cambia index.html: subir `VERSION` en sw.js y `APP_VERSION` en index.html (v10, v11…; interno, para que el teléfono no se quede con la versión vieja en caché) y poner `APP_FECHA` en index.html con la fecha de hoy ("18-nov-2026").
+**Lo que él verifica es solo la fecha:** la app muestra «App actualizada DD-mmm-AAAA» junto al estado de sincronización; al publicar, decirle «verifica que diga App actualizada <fecha de hoy>». No darle números de versión ni pedirle nada en git.
 Commits con la línea: Co-Authored-By: Claude <noreply@anthropic.com>
 
 ## Dónde se trabaja (desde 17-nov-2026: en la nube)
 Esta app se maneja desde una sesión de Claude Code en la nube (claude.ai/code o la app Claude del celular), para poder trabajar con la PC apagada.
 - **Una sola sesión a la vez.** No trabajar Coach en la PC y en la nube al mismo tiempo.
 - **Al empezar:** `git pull` de `main`. **Al terminar:** todo cambio verificado queda subido a `main`; nunca dejar trabajo solo en la VM, porque se borra.
-- **Respaldo de cada versión de la app:** en vez de OneDrive (la nube no lo ve), crear el tag `vN` en el commit publicado y subirlo (`git push origin vN`). Los respaldos viejos de OneDrive `_versiones/COACH/` quedan como archivo histórico.
+- **Respaldo de cada versión de la app:** el propio historial de git en `main`; no se crean tags ni se le pide nada a él en git (desde la nube los tags no se pueden subir). Los respaldos viejos de OneDrive `_versiones/COACH/` quedan como archivo histórico.
 - **Prueba antes de publicar un cambio de index.html:** servir el repo en local (`python3 -m http.server`) y abrirlo con Playwright/Chromium (instalar con pip o npm si falta), a 1280 px y 375 px.
 - **Datos de Drive:** se leen con el conector de Google Drive. Si el conector no está disponible en la sesión, decirlo al inicio en vez de suponer datos.
 - **Forma de responder al usuario:** español, corto y directo; en lo técnico, qué cambió y por qué, sin mostrar código; hallazgos y propuestas en tabla (problema, causa, solución, ¿aprueba?). Preguntar antes de cambios grandes; publicar solo con su aprobación.

@@ -163,7 +163,8 @@ pre{white-space:pre-wrap;font:12px/1.5 'Inter',sans-serif;background:#F7FAFC !im
 <script>
 // La URL del Apps Script NO va en el código: el repositorio es público y ese endpoint
 // no tiene autenticación. Se pide una vez por dispositivo y queda en localStorage.
-const APP_VERSION='v9'; // igual que VERSION en sw.js
+const APP_VERSION='v10'; // igual que VERSION en sw.js (interno, para el caché)
+const APP_FECHA='18-nov-2026'; // lo que ve él: cambiar a la fecha de cada publicación
 const SK_URL='coach_gas_url';
 let SCRIPT_URL=(()=>{try{return localStorage.getItem(SK_URL)||'';}catch(e){return '';}})();
 const URL_VALIDA=u=>/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test((u||'').trim());
@@ -236,7 +237,7 @@ const nombreId=id=>id.replace(/-/g,' ').replace(/^\w/,c=>c.toUpperCase());
 
 // ---------- datos ----------
 const dia=k=>{if(!datos.dias)datos.dias={};const d=datos.dias[k]=datos.dias[k]||{nota:'',m:{},e:{},ok:false,f:''};if(!d.m)d.m={};if(!d.e)d.e={};return d;};
-function setSync(e,t){document.getElementById('sdot').className='dot '+e;document.getElementById('stxt').textContent=t+' · '+APP_VERSION;}
+function setSync(e,t){document.getElementById('sdot').className='dot '+e;document.getElementById('stxt').textContent=t+' · App actualizada '+APP_FECHA;}
 function guardarLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify(datos));}catch(e){}}
 function cargarLocal(){try{const s=localStorage.getItem(LS_KEY);if(s){datos=JSON.parse(s);}}catch(e){}if(!datos.semanas)datos.semanas={};if(!datos.dias)datos.dias={};}
 const editando=()=>{const a=document.activeElement;return !!a&&(a.id==='nota'||String(a.id).startsWith('g-')||a.classList.contains('ci'));};
