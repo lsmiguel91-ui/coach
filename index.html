@@ -163,7 +163,7 @@ pre{white-space:pre-wrap;font:12px/1.5 'Inter',sans-serif;background:#F7FAFC !im
 <script>
 // La URL del Apps Script NO va en el código: el repositorio es público y ese endpoint
 // no tiene autenticación. Se pide una vez por dispositivo y queda en localStorage.
-const APP_VERSION='v8'; // igual que VERSION en sw.js
+const APP_VERSION='v9'; // igual que VERSION en sw.js
 const SK_URL='coach_gas_url';
 let SCRIPT_URL=(()=>{try{return localStorage.getItem(SK_URL)||'';}catch(e){return '';}})();
 const URL_VALIDA=u=>/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test((u||'').trim());
