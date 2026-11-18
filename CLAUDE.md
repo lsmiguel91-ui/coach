@@ -78,6 +78,7 @@ Para forzarlo desde plan.json: `"cap":{"u":"reps","ns":4,"v":"8","kg":"10"}` en 
 
 ## Formato de una sesión en plan.json
 "YYYY-MM-DD": {"t","ic" (emoji),"tit","dur","obj","hora","bloques":[{"f":"Nombre bloque","items":[{"n","d","c","yt"?,"k"?:1 si es el ejercicio clave}]}],"tips"?:[...]}
+`"hora"` va como `"Madrugada"` (o `"Sin horario"` / `"—"` en descanso): nunca horas exactas ni de entrada al trabajo, el repo es público.
 Herramienta: `python3 tools/semana.py ver|copiar|validar plan.json ...`. Siempre `validar` antes de subir.
 
 ## Publicar

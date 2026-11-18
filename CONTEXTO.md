@@ -18,7 +18,7 @@ este repositorio; no hay ninguna otra.
 |---|---|
 | Repositorio | `lsmiguel91-ui/coach`, rama `main` |
 | App publicada | https://lsmiguel91-ui.github.io/coach/ (GitHub Pages, main /root) |
-| Datos del atleta | Google Drive, `plan_entrenamiento_notas.json` (id en el archivo privado) |
+| Datos del atleta | Google Drive, carpeta «Entrenamiento», `plan_entrenamiento_notas.json` (id en el archivo privado; movido desde la raíz el 18-nov, el id no cambió) |
 | Datos privados | Google Drive, carpeta «Entrenamiento», `coach_privado_AAAA-MM-DD.md` (el más reciente) |
 | Reportes PDF | Google Drive, carpeta «Entrenamiento» → "Reportes coach semanales" (id en el archivo privado) |
 | Respaldos | Desde 17-nov-2026: un tag `vN` por versión en este repo. Antes: OneDrive `_versiones/COACH/` (archivo histórico, no se edita) |
@@ -164,8 +164,9 @@ Drive. Aquí solo lo que entra en la progresión:
 ## 7b. Apps Script de Drive (18-nov-2026, solo contexto)
 
 El Apps Script «Ejercicio fisico Script» tenía un reporte que llamaba a la API de Anthropic; esa
-clave ya fue eliminada. Él lo reemplaza a mano con `Coach_GAS_limpio.txt` (carpeta
-«Entrenamiento» en Drive), que solo lee y guarda los datos. La app (`index.html`) no usa la API
+clave ya fue eliminada. El 18-nov él lo reemplazó con `Coach_GAS_limpio.txt` (carpeta
+«Entrenamiento» en Drive), que solo lee y guarda los datos y abre el archivo por id, así que
+moverlo de carpeta no lo afecta. La app (`index.html`) no usa la API
 de Anthropic: no hay nada que tocar en ella por esto.
 
 ## 8. Cómo trabajar con él
