@@ -21,7 +21,7 @@ este repositorio; no hay ninguna otra.
 | Datos del atleta | Google Drive, carpeta «Entrenamiento», `plan_entrenamiento_notas.json` (id en el archivo privado; movido desde la raíz el 18-nov, el id no cambió) |
 | Datos privados | Google Drive, carpeta «Entrenamiento», `coach_privado_AAAA-MM-DD.md` (el más reciente) |
 | Reportes PDF | Google Drive, carpeta «Entrenamiento» → "Reportes coach semanales" (id en el archivo privado) |
-| Respaldos | Desde 17-nov-2026: un tag `vN` por versión en este repo. Antes: OneDrive `_versiones/COACH/` (archivo histórico, no se edita) |
+| Respaldos | Desde 17-nov-2026: un tag `vN` por versión en este repo. **Desde la nube no se pueden subir tags** (la conexión se corta): él los crea en GitHub → Releases → nuevo release con tag `vN` sobre `main`. Antes: OneDrive `_versiones/COACH/` (archivo histórico, no se edita) |
 | Dónde se trabaja | Sesión de Claude Code en la nube (ver `CLAUDE.md`, "Dónde se trabaja") |
 
 Archivos del repo: `index.html` (la app completa), `plan.json` (el plan, se descarga al abrir),
@@ -48,7 +48,7 @@ La rutina anterior, que cargaba sin confirmar, ya no existe.
 **Funcionando al 100%:**
 
 - App publicada y sincronizando con Drive.
-- Plan separado en `plan.json`; el service worker no lo cachea. Versión: **v8** (se ve junto al
+- Plan separado en `plan.json`; el service worker no lo cachea. Versión: **v9** (se ve junto al
   estado de sincronización; `APP_VERSION` en index.html y `VERSION` en sw.js van siempre iguales).
 - **Sincronización segura entre dispositivos** (v7 y v8, 15-nov): antes de subir, la app lee
   Drive y combina **campo por campo** con la hora de edición de cada uno (`t`); en datos viejos
@@ -168,6 +168,15 @@ clave ya fue eliminada. El 18-nov él lo reemplazó con `Coach_GAS_limpio.txt` (
 «Entrenamiento» en Drive), que solo lee y guarda los datos y abre el archivo por id, así que
 moverlo de carpeta no lo afecta. La app (`index.html`) no usa la API
 de Anthropic: no hay nada que tocar en ella por esto.
+
+## 7c. Historial de git reescrito (18-nov-2026)
+
+Se reescribió todo el historial de `main` para quitar datos personales e ids (los mismos que
+pasaron al archivo privado de Drive). Todos los commits cambiaron de identificador; el tag `v8`
+viejo apuntaba al historial anterior y hay que borrarlo en GitHub. v9 es la misma app que v8
+con dos textos sin datos personales. Respaldo completo del historial anterior: bundle de git en
+Drive, carpeta «Entrenamiento». Si alguna copia local (PC) es anterior al 18-nov, no hacer
+`git pull`: volver a clonar.
 
 ## 8. Cómo trabajar con él
 
