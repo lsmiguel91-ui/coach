@@ -1864,5 +1864,517 @@
   "obj": "Recuperación. Opcional: caminar 20 min y foam roller.",
   "bloques": [],
   "hora": "—"
+ },
+ "2026-11-23": {
+  "t": "trote",
+  "ic": "🏃",
+  "tit": "Trote moderado 20 min",
+  "dur": "35 min",
+  "obj": "9.5 km/h · 1% · RPE 5 · FC promedio ≤150 · pasos cortos y rápidos (165-170)",
+  "bloques": [
+   {
+    "f": "Antes",
+    "items": [
+     {
+      "n": "Chequeo de salud",
+      "d": "Antes de empezar",
+      "c": "Si tienes fiebre, presión en el pecho, tos fuerte o el pulso en reposo 10 o más por encima de lo normal: hoy solo caminas 20 min a 5-6 km/h y lo anotas."
+     },
+     {
+      "n": "Test de la grada",
+      "d": "Antes de correr",
+      "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."
+     },
+     {
+      "n": "Foam roller",
+      "d": "Cuádriceps y aductores · 60 s por zona y pierna",
+      "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.",
+      "yt": "foam roller cuadriceps aductores tecnica"
+     }
+    ]
+   },
+   {
+    "f": "Calentamiento",
+    "items": [
+     {
+      "n": "Calentamiento",
+      "d": "8 min · 7→8 km/h · 0%",
+      "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."
+     }
+    ]
+   },
+   {
+    "f": "Principal",
+    "items": [
+     {
+      "n": "Trote continuo",
+      "d": "20 min · 9.5 km/h · 1%",
+      "c": "Misma sesión que el lunes pasado, que no quedó registrada. Velocidad fija en 9.5, aunque te sientas bien: el sábado saliste a 10 km/h y la cadencia bajó a 153. Hoy la meta es la cadencia: pasos cortos y rápidos, 165-170. Si la FC pasa de 150 después del minuto 10, baja a 9 km/h.",
+      "yt": "tecnica de carrera trotadora postura",
+      "k": 1
+     }
+    ]
+   },
+   {
+    "f": "Cierre",
+    "items": [
+     {
+      "n": "Enfriamiento anti-mareo",
+      "d": "5 min · 6 km/h · 0%",
+      "c": "Los 5 minutos completos, no 2. Obligatorio antes de bajarte de la trotadora: evita el mareo y cuida la rodilla."
+     }
+    ]
+   }
+  ],
+  "hora": "Madrugada",
+  "tips": [
+   "Anota la FC promedio y la cadencia de hoy: de eso depende si mañana haces intervalos.",
+   "La alerta de cadencia baja (160) te va a sonar: úsala para acortar el paso, no la apagues.",
+   "Registra cada sesión en la app aunque sea solo con las métricas: la semana pasada solo llegó un día."
+  ]
+ },
+ "2026-11-24": {
+  "t": "intervalos",
+  "ic": "⚡",
+  "tit": "Intervalos 4×400 m @12.5",
+  "dur": "40 min",
+  "obj": "4 series de 400 m a 12.5 km/h · 1% · descanso 2 min caminando a 5-6 km/h · RPE esperado 6-7",
+  "bloques": [
+   {
+    "f": "Antes",
+    "items": [
+     {
+      "n": "Chequeo de salud",
+      "d": "Antes de empezar",
+      "c": "Si tienes fiebre, presión en el pecho, tos fuerte o el pulso en reposo 10 o más por encima de lo normal: hoy solo caminas 20 min a 5-6 km/h y lo anotas."
+     },
+     {
+      "n": "Test de la grada",
+      "d": "Antes de correr",
+      "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."
+     },
+     {
+      "n": "Foam roller",
+      "d": "Cuádriceps y aductores · 60 s por zona y pierna",
+      "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.",
+      "yt": "foam roller cuadriceps aductores tecnica"
+     }
+    ]
+   },
+   {
+    "f": "Calentamiento",
+    "items": [
+     {
+      "n": "Calentamiento",
+      "d": "8 min · 7→8 km/h · 0%",
+      "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."
+     },
+     {
+      "n": "Drills de técnica",
+      "d": "A-skip 2×20 m · B-skip 2×20 m",
+      "c": "A-skip: rodilla arriba a 90°, brazo contrario, apoyo en la punta bajo la cadera. B-skip: igual, pero extiende la pierna adelante y \"rasca\" el piso hacia atrás. Tronco erguido.",
+      "yt": "A skip B skip tecnica de carrera"
+     }
+    ]
+   },
+   {
+    "f": "Principal",
+    "items": [
+     {
+      "n": "Serie 1",
+      "d": "400 m @ 12.5 km/h · 1% → 2 min a 5-6 km/h",
+      "c": "Solo si el lunes la FC promedio quedó en 150 o menos y te sentiste bien. Si no, hoy es trote suave de 20 min a 9.5 km/h. Cada serie dura 1:55. Se repite la sesión del martes pasado porque no quedó registrada: si hoy completas las 4 con RPE 8 o menos, la próxima semana se avanza."
+     },
+     {
+      "n": "Serie 2",
+      "d": "400 m @ 12.5 km/h · 1% → 2 min a 5-6 km/h"
+     },
+     {
+      "n": "Serie 3",
+      "d": "400 m @ 12.5 km/h · 1% → 2 min a 5-6 km/h"
+     },
+     {
+      "n": "Serie 4",
+      "d": "400 m @ 12.5 km/h · 1% → 2 min a 5-6 km/h",
+      "k": 1
+     }
+    ]
+   },
+   {
+    "f": "Cierre",
+    "items": [
+     {
+      "n": "Enfriamiento anti-mareo",
+      "d": "5 min · 6 km/h · 0%",
+      "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."
+     }
+    ]
+   }
+  ],
+  "tips": [
+   "Si hoy todo sale a RPE 8 o menos, la próxima semana se avanza (más series o más distancia).",
+   "Anota la potencia media de las series (Intervalos → Carrera → fila Total)."
+  ],
+  "hora": "Madrugada"
+ },
+ "2026-11-25": {
+  "t": "pecho",
+  "ic": "💪",
+  "tit": "Pecho + abdomen con tests",
+  "dur": "45 min",
+  "obj": "Tests al inicio y en fresco: abd. militares 1'30\" y AMRAP push-ups · después pecho de mantenimiento · RPE 6-7",
+  "bloques": [
+   {
+    "f": "Activación",
+    "items": [
+     {
+      "n": "Bird-dog + puente de glúteo",
+      "d": "2 × 10 c/u",
+      "c": "Bird-dog: en cuatro apoyos, estira brazo y pierna contrarios sin mover la cadera. Puente: boca arriba, sube la cadera apretando glúteos 2 s.",
+      "yt": "bird dog ejercicio tecnica"
+     }
+    ]
+   },
+   {
+    "f": "Test abdominal",
+    "items": [
+     {
+      "n": "Abdominales militares 1'30\"",
+      "d": "1 serie máxima SIN PAUSA · aprobar 52 · meta 58",
+      "c": "Pies fijos, rodillas a 90°, manos cruzadas al pecho. Los omóplatos despegan por completo y los codos tocan los muslos. Ritmo constante ≈ 18 cada 30 s; si arde, baja el ritmo pero no te detengas. Anota reps a los 30, 60 y 90 s.",
+      "yt": "abdominales militares tecnica correcta",
+      "k": 1
+     }
+    ]
+   },
+   {
+    "f": "Descanso",
+    "items": [
+     {
+      "n": "Descanso entre tests",
+      "d": "3 min",
+      "c": "Camina y respira. Toma agua. No estires el pecho fuerte.",
+      "cap": false
+     }
+    ]
+   },
+   {
+    "f": "Test pecho",
+    "items": [
+     {
+      "n": "AMRAP push-ups 1'30\"",
+      "d": "Aprobar 43 · meta 48",
+      "c": "3 min de descanso después del test de abdominales. Bloques de 5 desde el inicio, con pausa arriba de 2-3 s y brazos estirados cuando lo necesites. Nunca rodillas al piso. Anota el total.",
+      "yt": "flexiones de pecho tecnica correcta",
+      "k": 1
+     }
+    ]
+   },
+   {
+    "f": "Pecho",
+    "items": [
+     {
+      "n": "Rotación externa con banda",
+      "d": "2 × 15",
+      "c": "Codo pegado al cuerpo a 90°, gira el antebrazo hacia afuera contra la banda y vuelve lento. Protege el hombro antes del pecho.",
+      "yt": "rotacion externa hombro banda elastica"
+     },
+     {
+      "n": "Press mancuernas banco plano",
+      "d": "3 × 8 · 10 kg",
+      "c": "Escápulas juntas y apoyadas en el banco, baja en 2 s hasta el pecho, codos a 45° del cuerpo. Si el hombro derecho molesta, para.",
+      "yt": "press de pecho con mancuernas tecnica"
+     },
+     {
+      "n": "Push-ups agarre ancho",
+      "d": "2 × 15",
+      "c": "Manos más abiertas que los hombros, cuerpo recto como tabla, pecho casi toca el piso.",
+      "yt": "flexiones agarre ancho tecnica"
+     },
+     {
+      "n": "Push-ups pies elevados",
+      "d": "2 × 12",
+      "c": "Pies en el banco, manos en el piso. Trabaja la parte alta del pecho. Cuerpo recto.",
+      "yt": "flexiones pies elevados"
+     },
+     {
+      "n": "Plank shoulder taps",
+      "d": "2 × 12 por lado",
+      "c": "En plancha alta, toca el hombro contrario alternando sin mover la cadera. Pies separados para más estabilidad.",
+      "yt": "plank shoulder taps"
+     },
+     {
+      "n": "Fondos en banco",
+      "d": "2 × 15",
+      "c": "Manos en el borde del banco, piernas estiradas, baja hasta 90° de codo y sube. Codos hacia atrás, no abiertos.",
+      "yt": "fondos en banco triceps tecnica"
+     }
+    ]
+   },
+   {
+    "f": "Abdomen complementario",
+    "items": [
+     {
+      "n": "Hollow body hold",
+      "d": "2 × 40 s",
+      "c": "Boca arriba, lumbar pegada al piso, brazos y piernas estirados elevados. Si la lumbar se despega, sube un poco las piernas.",
+      "yt": "hollow body hold tecnica"
+     },
+     {
+      "n": "Elevaciones de piernas",
+      "d": "2 × 12",
+      "c": "Piernas juntas, sube a 90° y baja lento sin tocar el piso. Lumbar pegada.",
+      "yt": "leg raises tecnica"
+     },
+     {
+      "n": "Plancha isométrica",
+      "d": "2 × 40 s",
+      "c": "Dos planchas tranquilas, sin intento máximo. Codos bajo los hombros, glúteos apretados, abdomen activo. Respira.",
+      "yt": "plancha abdominal tecnica correcta"
+     }
+    ]
+   }
+  ],
+  "hora": "Madrugada",
+  "tips": [
+   "Los tests van primero, con el cuerpo fresco, como en la prueba oficial. Estos números son tu nueva línea base: no se comparan con los tests viejos, que se hacían al final.",
+   "Si después de los tests no te da para la última serie de algún ejercicio de pecho, quítala y anótalo: no es retroceso."
+  ]
+ },
+ "2026-11-26": {
+  "t": "ritmo",
+  "ic": "⏱️",
+  "tit": "Ritmo 2×1 km @12.0",
+  "dur": "40 min",
+  "obj": "2 bloques de 1 km a 12.0 km/h · descanso 2:30 trotando a 6 · 1.5% · RPE esperado 7",
+  "bloques": [
+   {
+    "f": "Antes",
+    "items": [
+     {
+      "n": "Chequeo de salud",
+      "d": "Antes de empezar",
+      "c": "Si tienes fiebre, presión en el pecho, tos fuerte o el pulso en reposo 10 o más por encima de lo normal: hoy solo caminas 20 min a 5-6 km/h y lo anotas."
+     },
+     {
+      "n": "Test de la grada",
+      "d": "Antes de correr",
+      "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."
+     },
+     {
+      "n": "Foam roller",
+      "d": "Cuádriceps y aductores · 60 s por zona y pierna",
+      "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.",
+      "yt": "foam roller cuadriceps aductores tecnica"
+     }
+    ]
+   },
+   {
+    "f": "Calentamiento",
+    "items": [
+     {
+      "n": "Calentamiento",
+      "d": "8 min · 7→8 km/h · 0%",
+      "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."
+     },
+     {
+      "n": "Drills de técnica",
+      "d": "A-skip 2×20 m · B-skip 2×20 m",
+      "c": "A-skip: rodilla arriba a 90°, brazo contrario, apoyo en la punta bajo la cadera. B-skip: igual, pero extiende la pierna adelante y \"rasca\" el piso hacia atrás. Tronco erguido.",
+      "yt": "A skip B skip tecnica de carrera"
+     }
+    ]
+   },
+   {
+    "f": "Principal",
+    "items": [
+     {
+      "n": "Bloque 1",
+      "d": "1 km @ 12.0 km/h · 1.5% → 2:30 a 6 km/h",
+      "c": "Cada bloque dura 5:00. Medio punto por debajo de lo habitual para volver sin forzar después de la gripe. Pasos cortos y rápidos."
+     },
+     {
+      "n": "Bloque 2",
+      "d": "1 km @ 12.0 km/h · 1.5% → 2:30 a 6 km/h",
+      "k": 1
+     }
+    ]
+   },
+   {
+    "f": "Cierre",
+    "items": [
+     {
+      "n": "Enfriamiento anti-mareo",
+      "d": "5 min · 6 km/h · 0%",
+      "c": "Obligatorio antes de bajarte de la trotadora. Evita el mareo post-esfuerzo."
+     }
+    ]
+   }
+  ],
+  "tips": [
+   "Si el bloque 2 sale a RPE 8 o menos, la próxima semana vuelves a 3 × 1 km a 12.5 km/h.",
+   "Si el martes no hiciste intervalos por la FC alta, hoy haz trote suave de 20 min en lugar del ritmo."
+  ],
+  "hora": "Madrugada"
+ },
+ "2026-11-27": {
+  "t": "piernas",
+  "ic": "🦵",
+  "tit": "Piernas que protegen la rodilla + abd. velocidad",
+  "dur": "35 min",
+  "obj": "Fuerza sin impacto para la rodilla + abdominales a ritmo de prueba · RPE 5-6",
+  "bloques": [
+   {
+    "f": "Fuerza (20 min)",
+    "items": [
+     {
+      "n": "Wall sit isométrico",
+      "d": "3 × 40 s",
+      "c": "Espalda pegada a la pared, rodillas a ~70° (no tan profundo), rodillas alineadas con los pies. Fortalece el cuádriceps sin impacto.",
+      "yt": "wall sit sentadilla isometrica pared",
+      "k": 1
+     },
+     {
+      "n": "Puente de glúteo a una pierna",
+      "d": "3 × 15 por pierna",
+      "c": "Boca arriba, una pierna estirada al aire, empuja con el talón de la otra y aprieta 2 s arriba.",
+      "yt": "puente de gluteo a una pierna"
+     },
+     {
+      "n": "Monster walk con banda",
+      "d": "3 × 12 pasos por lado (24 en total)",
+      "c": "Banda sobre las rodillas, semi-sentadilla, pasos laterales sin juntar los pies. Fortalece el glúteo medio, que estabiliza la rodilla.",
+      "yt": "monster walk banda gluteo medio"
+     },
+     {
+      "n": "Peso muerto rumano",
+      "d": "3 × 10 · 14 kg por mano",
+      "c": "Se mantiene en 14 kg porque el viernes pasado no quedó registrado; si hoy sale fácil y limpio, la próxima semana sube a 16 kg. Rodillas apenas dobladas, cadera hacia atrás con espalda recta, mancuernas pegadas a las piernas. Sube despacio exhalando (evita el mareo).",
+      "yt": "peso muerto rumano mancuernas tecnica"
+     },
+     {
+      "n": "Elevación de talón",
+      "d": "3 × 15 · sin peso",
+      "c": "En un escalón, sube con los dos pies y baja en 3 s con uno. Protege Aquiles y fascia plantar.",
+      "yt": "elevacion de talones escalon excentrico"
+     }
+    ]
+   },
+   {
+    "f": "Abdomen por velocidad (10 min)",
+    "items": [
+     {
+      "n": "Abdominales militares en bloques de 30 s",
+      "d": "4 × 30 s · descanso 45 s · meta 20-22 parejos",
+      "c": "Técnica completa (escápula al piso). Busca el mismo número en los 4 bloques. Si los 4 salen limpios y sin fatiga final, la próxima semana se sube.",
+      "yt": "abdominales militares tecnica correcta",
+      "k": 1
+     },
+     {
+      "n": "Hollow body hold",
+      "d": "2 × 40 s",
+      "c": "Lumbar pegada al piso."
+     }
+    ]
+   }
+  ],
+  "hora": "Madrugada"
+ },
+ "2026-11-28": {
+  "t": "fondo",
+  "ic": "🏃",
+  "tit": "Fondo suave 25 min + pecho corto",
+  "dur": "55 min",
+  "obj": "9.5 km/h · 1.5% · RPE ≤6 · FC promedio ≤150 · pasos cortos y rápidos (165) · luego pecho corto",
+  "bloques": [
+   {
+    "f": "Antes",
+    "items": [
+     {
+      "n": "Chequeo de salud",
+      "d": "Antes de empezar",
+      "c": "Si tienes fiebre, presión en el pecho, tos fuerte o el pulso en reposo 10 o más por encima de lo normal: hoy solo caminas 20 min a 5-6 km/h y lo anotas."
+     },
+     {
+      "n": "Test de la grada",
+      "d": "Antes de correr",
+      "c": "Baja una grada apoyando la pierna derecha. Si duele 3/10 o más, hoy no corres: haces roller, movilidad y lo anotas."
+     },
+     {
+      "n": "Foam roller",
+      "d": "Cuádriceps y aductores · 60 s por zona y pierna",
+      "c": "Rueda lento (2-3 cm/s) desde la cadera hasta 5 cm antes de la rótula. Nunca sobre la rodilla. Presión máxima 6/10.",
+      "yt": "foam roller cuadriceps aductores tecnica"
+     }
+    ]
+   },
+   {
+    "f": "Calentamiento",
+    "items": [
+     {
+      "n": "Calentamiento",
+      "d": "8 min · 7→8 km/h · 0%",
+      "c": "Trote muy suave, respiración por la nariz. Sube de 7 a 8 km/h en los últimos 3 minutos."
+     }
+    ]
+   },
+   {
+    "f": "Fondo",
+    "items": [
+     {
+      "n": "Trote continuo",
+      "d": "25 min · 9.5 km/h · 1.5%",
+      "c": "El fondo pasado lo hiciste a 10 km/h y salió con RPE 7, pulso justo en 150 y cadencia 153. Hoy a 9.5, que es la velocidad del plan: tiene que sentirse fácil. Pasos cortos y rápidos (165). Si en el min 15 la rodilla pasa de 2/10, cortas.",
+      "k": 1
+     }
+    ]
+   },
+   {
+    "f": "Cierre",
+    "items": [
+     {
+      "n": "Enfriamiento anti-mareo",
+      "d": "5 min · 6 km/h · 0%",
+      "c": "Los 5 minutos completos a 6 km/h. Obligatorio antes de bajarte de la trotadora: evita el mareo post-esfuerzo."
+     }
+    ]
+   },
+   {
+    "f": "Pecho corto",
+    "items": [
+     {
+      "n": "Push-ups",
+      "d": "2 × 15",
+      "c": "Cuerpo recto, pecho casi al piso.",
+      "yt": "flexiones de pecho tecnica correcta"
+     },
+     {
+      "n": "Plank shoulder taps",
+      "d": "2 × 12 por lado",
+      "c": "Sin mover la cadera.",
+      "yt": "plank shoulder taps"
+     },
+     {
+      "n": "Plancha isométrica",
+      "d": "2 × 40 s",
+      "c": "Glúteos y abdomen apretados."
+     }
+    ]
+   }
+  ],
+  "hora": "Madrugada",
+  "tips": [
+   "Duerme 6.5 h o más.",
+   "Registra la sesión en el día que la haces: si corres otro día, anótala en esa fecha."
+  ]
+ },
+ "2026-11-29": {
+  "t": "descanso",
+  "ic": "😴",
+  "tit": "Descanso total",
+  "dur": "—",
+  "obj": "Recuperación. Opcional: caminar 20 min y foam roller.",
+  "bloques": [],
+  "hora": "—"
  }
 }
