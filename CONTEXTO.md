@@ -34,14 +34,17 @@ dentro de la app y queda en `localStorage`.
 
 ## 2. Tarea programada
 
-"Coach semanal: reporte + propuesta" (creada el 15-nov; id en el archivo privado),
-**domingos 18:55 hora local** (`55 23 * * 0` UTC), en la nube, modelo Opus 5.5, conectores Drive y
-Gmail. Lee Drive, evalúa la semana, genera el PDF y lo sube a "Reportes coach semanales", y deja
-la semana siguiente **como propuesta en la rama `propuesta/AAAA-MM-DD`**, nunca en main. Si la
-semana siguiente ya está en `plan.json` de main, no propone nada y solo hace el reporte.
-**Cuando él responde "aprobado"**: traer `plan.json` de esa rama a main (solo las fechas de la
-semana propuesta), validar, commit y push. Gestión: claude.ai/code → Rutinas.
-La rutina anterior, que cargaba sin confirmar, ya no existe.
+Desde el 23-nov-2026: **"Coach semanal automático: reporte + semana nueva"** (id en el archivo
+privado), **domingos 18:40 hora local**, que corre dentro de la sesión permanente de Coach en la
+nube. Lee Drive, evalúa la semana con las reglas de CLAUDE.md, escribe la semana siguiente,
+valida y **la publica directo en main** (aprobado por él el 23-nov: ya no se espera "aprobado").
+Genera el PDF y lo sube a «Reportes coach semanales». Si la semana siguiente ya está cargada, no
+la toca y solo hace el reporte. Si él quiere cambiar algo, lo pide en la sesión y se corrige.
+
+La rutina anterior, "Coach semanal: reporte + propuesta" (15-nov, 18:55, dejaba la semana en una
+rama `propuesta/…` esperando "aprobado"), la creó él y debe quedar **desactivada** para que no
+corran las dos. La rama `propuesta/2026-11-23` quedó en GitHub: desde la nube no se pueden borrar
+ramas remotas; no estorba.
 
 ## 3. Estado actual
 
